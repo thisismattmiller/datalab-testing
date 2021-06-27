@@ -24,3 +24,4 @@ markdown==3.3.4
 psycopg2==2.8.6
 dj_database_url==0.4.1
 gunicorn==19.6.0
+whitenoise==5.0.1
