@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'taggit',
 
     'storages',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
