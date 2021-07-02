@@ -27,3 +27,4 @@ gunicorn==19.6.0
 whitenoise==5.0.1
 django-storages==1.11.1
 boto3==1.17.101
+rdflib-jsonld==0.4.0

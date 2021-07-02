@@ -193,8 +193,7 @@
               query = query + '''FILTER(?date >= xsd:dateTime("1971-09-01T00:00:00") && ?date <= xsd:dateTime("1972-09-01T00:00:00"))}'''
               query = query + 'ORDER BY ?date'
 
-              sparql = SPARQLWrapper("http://3.248.151.50:7200/repositories/ch-lod")
-              sparql.setCredentials("anonymous", "practice!!!")
+              sparql = SPARQLWrapper("http://data.carnegiehall.org/sparql/")
               sparql.setQuery(query)
               sparql.setReturnFormat(JSON)
               results = sparql.query().convert()
