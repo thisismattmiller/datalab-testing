@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">Comparison of Haydn, Mozart, and Beethoven</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0003</h4>
+      <p class="card-text lead">A chart showing how many works by the "First Viennese School" composers are performed each year at Carnegie Hall.</p>
+    </div>
+  </div>
+  <!-- Interal page link to lab report goes here -->
+  <!-- If experiment data/visualization covers a lot of page space, remove data-toggle="collapse" here and on id="lab_report" -->
+  <!-- Include return navigation to Experiments page -->
+  <div class="container-fluid" pt-2>
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <div class="container-fluid">
+    <!-- data returned from query view goes here -->
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS2j3xjBi75YjM0JzQhxlA9lBplSPQu9lgu0JwXm0FBJ7ls23UeUwNauC94bSwckqCKFtH5aCfnvheW/pubchart?oid=1602631198&amp;format=interactive">
+      </iframe>
+    </div>
+  </div>
+  <!-- Lab report goes in this section -->
+  <!-- remove "collapse" from div class if lab report is below the fold -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3"id="lab_report-title">
+    <h2>EXPERIMENT LABEL/TITLE</h2>
+    <p>Comparison of Haydn, Mozart, and Beethoven</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3"id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>Create a line chart that correlates the number of works by Haydn, Mozart, and Beethoven performed each year at Carnegie Hall.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <p>Joseph Haydn, Wolfgang Amadeus Mozart, and Ludwig van Beethoven are commonly referred to as the “First Viennese School” of composers (the “Second Viennese School” being Arnold Schoenberg and his students/associates in the early 20th Century). The nearly 130-year history of Carnegie Hall presents and interesting opportunity to examine changes in popularity for these composers that now command such a central position in the classical music canon.</p>
+        <p>Rationale: a single concert might include performances of more than one work by any one of these composers, e.g. an “All-Beethoven” concert featuring several piano sonatas. The scope encompasses any work written by Haydn, Mozart, or Beethoven (including portions of works, e.g. a performance of only one movement from a sonata) performed each year at CH from the first performances at the Hall in 1891 until July 1, 2019 (the most recent update of data on data.carnegiehall.org).</p>
+        <div id="lab_report-methods">
+          <h2>METHODS</h2>
+          <p>We created a SPARQL query to count the number of each composer’s works performed each year:</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "<http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <!-- Be careful, "<" and ">" may need to be escaped with "&lt;" and "&gt;" -->
+            <!-- Quotes may also need to be escaped with "&quot;" -->
+            <pre><code>
+              PREFIX chnames: &lt;http://data.carnegiehall.org/names/&gt;
+              PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;
+              PREFIX event: <&lt;http://purl.org/NET/c4dm/event.owl#&gt;
+              PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+              SELECT ?yearOfEvent (COUNT(DISTINCT ?workPerf) AS ?numberOfWorks)
+              WHERE {
+              ?work dcterms:creator chnames:1003781 .
+              ?event dcterms:date ?date .
+              BIND (str(YEAR(?date)) AS ?yearOfEvent)
+              ?event event:product ?workPerf .
+              ?workPerf event:product ?work
+              }
+              GROUP BY ?yearOfEvent
+              ORDER BY ?yearOfEvent
+            </code></pre>
+          </div>
+          <p>The query was run three times, substituting to appropriate identifier for each composer in the first line of the WHERE clause:</p>
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <!-- Be careful, "<" and ">" may need to be escaped with "&lt;" and "&gt;" -->
+            <!-- Quotes may also need to be escaped with "&quot;" -->
+            <pre><code>
+              ?work dcterms:creator chnames:1003781  (Haydn)
+              ?work dcterms:creator chnames:1006075  (Mozart)
+              ?work dcterms:creator chnames:1005833  (Beethoven)
+            </code></pre>
+          </div>
+          <p>We then created a Google Sheet using the query results, added a Smooth Line chart to visualize the data, and created an embed link for the chart to use on our Data Lab site.</p>
+        </div>
+        <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>Google Charts are very easy to create, and with the embed option they provide an out-of-the-box tool to make nice data visualizations with no special development skills.</p>
+          <p><strong>further investigation</strong></p>
+          <p>Using Google Sheets/Charts for visualizations requires hosting the data in a personal Google Drive account. Ideally, we’d like to learn how to use a tool like D3.js to create chart visualizations on our own without having to host the data files externally.</p>
+          <p>Another option: we currently use Ontotext’s GraphDB for our RDF data. GraphDB’s Workbench user interface offers several data display options, including the ability to create a Google Chart .svg file directly from the UI. Adding the .svg file to our Data Lab site could provide a more direct method for visualization with a shallower learning curve than D3.js.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}

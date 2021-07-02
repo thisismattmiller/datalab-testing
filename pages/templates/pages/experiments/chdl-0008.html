@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">May 5, 1891 Across America</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0008</h4>
+      <p class="lead text-left">View newspapers from across America published on May 5, 1891, Carnegie Hall's opening night.
+      <p class="card-text lead">To see the front pages, click the map markers that show where each newspaper was located.</p>
+    </div>
+  </div>
+  <!-- Interal page link to lab report goes here -->
+  <!-- If experiment data/visualization covers a lot of page space, remove data-toggle="collapse" here and on id="lab_report" -->
+  <!-- Include return navigation to Experiments page -->
+  <div class="container-fluid" pt-2>
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <div class="container-fluid">
+    <!-- data returned from query view goes here -->
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe src="https://www.google.com/maps/d/embed?mid=1xUbVuwRCldI5yM1be9V2wpwDEBVo08ij" width="640" height="480">
+      </iframe>
+    </div>
+  </div>
+  <!-- Lab report goes in this section -->
+  <!-- remove "collapse" from div class if lab report is below the fold -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3"id="lab_report-title">
+    <h2>EXPERIMENT LABEL/TITLE</h2>
+    <p>May 5, 1891 Across America</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3"id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>Provide links to digitized front pages from newspapers across America published on May 5, 1891, Carnegie Hall's opening night, and plot them on a map by their locations.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <div id="lab_report-methods">
+          <p>The Library of Congress' <a href="https://chroniclingamerica.loc.gov/" target="_blank"><strong>Chronicling America</strong></a> site provides access to digitized pages from American newspapers published between 1789 and 1963. We wanted to use this wonderful utility to see what was happening across America on May 5, 1891, Carnegie Hall's opening night. To provide a more visually interesting and interactive display, we created a map with markers for each newspaper, plotted by the city in which each was published. Each map marker provides the name, location, and date of the newspaper, an image of the front page, and a link to view the complete May 5, 1891 edition of that newspaper.</p>
+          <h2>METHODS</h2>
+          <h3>DATA</h3>
+          <p>We used Chronicling America's <a href="https://chroniclingamerica.loc.gov/#tab=tab_advanced_search" target="_blank">advanced search</a> feature to set a date range containing a single date, May 5, 1891. The search interface allows the user to limit the search to only the front page, or a specific page. We chose to limit it to the front page, in order to provide access to headines from that day. We left the search terms blank and didn't select any specific newspapers in order to return all possible front pages from May 5, 1891.</p>
+          <p>As for the rest, while we could have achieved our end more elegantly, sometimes quick and dirty is the easiest 😬. Results are returned as HTML in an unordered list. Using Google Chrome's Developer Tools, we isolated the correct HTML element containing the list of search results. By clicking next to the element, you can choose "Edit HTML" from a dialog box, which then displays just the contents of that element in its own text box. This allowed us to copy and paste the list into a text editor. Since our Data Lab site operates in GitHub Pages and each page is written in markdown syntax, we used this <a href="https://www.browserling.com/tools/html-to-markdown" target="_blank">online tool</a> to quickly convert the HTML list into markdown that we could paste into our Experiment page. The HTML results contained a few mistakes, e.g. an extra bracket inside the link text:</p>
+          <pre><code>*   [**Telegram-herald.** ([Grand Rapids, Mich.), May 05, 1891, Image 1]</code></pre>
+          <p>The offending bracket is the <code>[</code> inside the parentheses around Grand Rapids. While most browsers will ignore this and render the link correctly, in markdown it had the effect of wiping out the first part of the hyperlink text. Luckily, there were only two such instances in this result set and they were easily removed.</p>
+          <h3>MAP</h3>
+          <p>After gathering links as described above, we wanted to share a more engaging way to explore the front pages of newspapers. At first we thought an image grid of front pages with embedded links would be nice, but then we were inspired by some of the <a href="https://www.loc.gov/ndnp/data-visualizations/?loclr=blogsig" target="_blank">Chronicling America Data Visualizations</a>. And because we had created customized <a href="https://www.google.com/maps/about/mymaps/" target="_blank">Google Maps</a> for personal use in the past, we chose to try out that tool to achieve our goal.</p>
+          <p>We chose to create a map plotting the towns where these newspapers are from, and then add a thumbnail and Chronicling America link into the map marker. We used a list of the newspaper titles and links to create a Google Sheet with the Newspaper, City (hand typed and interpreted upon import by Google Maps), and Link. We then imported that Google Sheet into a new layer in the map. But we also needed images! So we manually grabbed thumbnails from Chronicling America and added them to Google Drive, inputting the images into the markers manually through a Drive to Maps integration.</p>
+          <p>Could we have used APIs to grab the newspaper, location data, link, and correct image resolution? Yes. Did we have time to learn how to do that between when we had this idea and when it would be shared? No! So with the limited number of front pages for May 5, 1891 (69 in total), we chose to move ahead with this scaled down approach. Split between 3 archivists, the work took a few hours of learning and doing.</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "&lt;http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+          </div>
+          <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>It's fun to take advantage of some of the wonderful digital collections available on the web, of which <a href="https://chroniclingamerica.loc.gov/" target="_blank">Chronicling America</a> is a great example. Juxtaposing Carnegie Hall's history with contemporary events helps to provide context and depth to our history.</p>
+          <p>For the map, it was an opportuity to learn about Google Maps and the opportunities that are possible in the future using Maps APIs. For example, we had to manually de-cluster (aka grab and move) map markers in the same cities. Marker clustering is possible when you're using the API, which we can't do right now because we can't run scripts on GitHub Pages and have to rely on embeds. There are clustering (and other geo-) services available, but for our experiment we chose the lowest resource route and will continue to investigate options for more extensive customization in the future.</p>
+          <p><strong>further investigation</strong></p>
+          <p>We'd like to bring assets like these into our RDF data model for our <a href="http://data.carnegiehall.org/" target="_blank">performance history as linked open data</a> in order to facilitate dynamic querying to expose connected resources automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}

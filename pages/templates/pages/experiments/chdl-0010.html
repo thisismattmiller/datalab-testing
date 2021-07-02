@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">The Leschetizky Effect</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0010</h4>
+      <p class="card-text lead">Pianists who studied with influential piano pedagogue Theodor Leschetizky and also performed at Carnegie Hall.</p>
+    </div>
+  </div>
+  <!-- Interal page link to lab report goes here -->
+  <!-- If experiment data/visualization covers a lot of page space, remove data-toggle="collapse" here and on id="lab_report" -->
+  <!-- Include return navigation to Experiments page -->
+  <div class="container-fluid" pt-2>
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <div class="container-fluid">
+    <div class="container-fluid">
+      <!-- data returned from query view goes here -->
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe
+        src="https://query.wikidata.org/embed.html#%23defaultView%3AImageGrid%0ASELECT%20DISTINCT%20%3Fpianist%20%3FpianistLabel%20%3FpianistImage%20%3FchURL%20%28CONCAT%28str%28%3FbirthYear%29%2C%20%22-%22%2C%20str%28%3FdeathYear%29%29%20AS%20%3FlifeDates%29%0A%28IRI%28CONCAT%28%22https%3A%2F%2Fwww.carnegiehall.org%2FAbout%2FHistory%2FPerformance-History-Search%3Fq%3D%26dex%3Dprod_PHS%26pf%3D%22%2C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%28STR%28ENCODE_FOR_URI%28%3FpianistLabel%29%29%29%29%29%20AS%20%3FphsLink%29%0AWHERE%20%7B%0A%20%20%3Fpianist%20wdt%3AP1303%20wd%3AQ5994%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20wdt%3AP1066%20wd%3AQ362340%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20wdt%3AP569%20%3FbirthDate%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20wdt%3AP570%20%3FdeathDate%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20wdt%3AP4104%20%3FchAgentID%20.%0A%20%20wd%3AP4104%20wdt%3AP1630%20%3Fformatterurl.%0A%20%20OPTIONAL%20%7B%20%3Fpianist%20wdt%3AP18%20%3FpianistImage%20.%20%7D%0A%20%20BIND%28IRI%28REPLACE%28%3FchAgentID%2C%20%27%5E%28.%2B%29%24%27%2C%20%3Fformatterurl%29%29%20AS%20%3FchURL%29.%0A%20%20BIND%28YEAR%28%3FbirthDate%29%20AS%20%3FbirthYear%29%0A%20%20BIND%28YEAR%28%3FdeathDate%29%20AS%20%3FdeathYear%29%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%20%20%7D" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups" >
+      </iframe>
+      </div>
+    </div>
+  </div>
+  <!-- Lab report goes in this section -->
+  <!-- remove "collapse" from div class if lab report is below the fold -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3"id="lab_report-title">
+    <h2>EXPERIMENT LABEL/TITLE</h2>
+    <p>The Leschetizky Effect</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3"id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>Use Wikidata's <a href="https://query.wikidata.org/" target="_blank">query service</a> to create an image grid of pianists that performed at Carnegie Hall who also studied with Theodor Leschetizky, perhaps the most influential piano pedagogue of the late 19th- and early 20th centuries.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <p>Pianist, composer, and teacher Theodor Leschetizky (1830 – 1915) was one of the most influential piano pedagogues of the late 19th- and early 20th centuries. According to Grove Music Online, from the mid-1850s through his death in 1915, "in excess of 1200 pianists are known to have studied with him. [Mieczyslaw] Horszowski, who had been his pupil, gave his last recital in 1991, so that from [Anna] Esipova's successes in the 1880s, Leschetizky's students were active on the concert stage for almost all of the 20th century."<sup>1</sup> More than two dozen of these pianists performed at Carnegie Hall, including <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Artur%20Schnabel_" target="_blank">Artur Schnabel</a>, <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Ossip%20Gabrilowitsch_" target="_blank">Ossip Gabrilowitsch</a>, <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Ignaz%20Friedman_" target="_blank">Ignaz Friedman</a>, <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Benno%20Moiseiwitsch_" target="_blank">Benno Moiseiwitsch</a>, <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Fannie%20Bloomfield%20Zeisler_" target="_blank">Fannie Bloomfield Zeisler</a>, <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Katharine%20Goodson_" target="_blank">Katharine Goodson</a>, <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS_Newest_First&pf=Ethel%20Leginska_" target="_blank">Ethel Leginska</a>, <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Elly%20Ney_" target="_blank">Elly Ney</a>, and many others. Stretching from <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Ignacy%20Jan%20Paderewski_" target="_blank">Ignacy Jan Paderewski</a> through <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Mieczyslaw%20Horszowski_" target="_blank">Horszowski</a>, whose final Carnegie Hall recital took place in April 1990, just weeks short of his 98th birthday, their performances fully blanket the Hall's first 100 years, a striking testament to Leschetizky's astonishing impact and legacy.</p>
+        <div id="lab_report-methods">
+          <h2>METHODS</h2>
+          <p>We created a SPARQL query using Wikidata’s query service. Since performer identifiers from Carnegie Hall’s linked open dataset have their own official Wikidata property, Carnegie Hall Agent ID (<a href="http://www.wikidata.org/entity/P4104" target="_blank">P4104</a>), which has been mapped to nearly 15,000 Wikidata items, we can query for items with both Carnegie Hall identifier and the property "instrument" (<a href="http://www.wikidata.org/entity/P1303" target="_blank">P1303</a>) with the value "piano" (<a href="http://www.wikidata.org/entity/Q5994" target="_blank">Q5994)</a> and the property "student of" (<a href="http://www.wikidata.org/entity/P1066" target="_blank">P1066</a>) with the value "Theodor Leschetizky" (<a href="http://www.wikidata.org/entity/Q362340" target="_blank">Q362340</a>). Additionally, the query asks for birth and death dates, and for an image of the pianist, if there is one available (<code>OPTIONAL { ?pianist wdt:P18 ?pianistImage . }</code>). The statement <code>BIND(IRI(REPLACE(?chAgentID, '^(.+)$', ?formatterurl)) AS ?chURL).</code>, together with the <code>(IRI(CONCAT</code> near the beginning of the query allows us to construct a link to each pianist's Carnegie Hall performance history.</p>
+          <p>Query:</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "<http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <!-- Be careful, "<" and ">" may need to be escaped with "&lt;" and "&gt;" -->
+            <!-- Quotes may also need to be escaped with "&quot;" -->
+            <pre><code>
+              #defaultView:ImageGrid
+              SELECT DISTINCT ?pianist ?pianistLabel ?pianistImage ?chURL (CONCAT(str(?birthYear), &quot;-&quot;, str(?deathYear)) AS ?lifeDates)
+              (IRI(CONCAT(&quot;https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=&quot;,
+              (STR(ENCODE_FOR_URI(?pianistLabel))))) AS ?phsLink)
+              WHERE {
+                ?pianist wdt:P1303 wd:Q5994 ;
+                wdt:P1066 wd:Q362340 ;
+                wdt:P569 ?birthDate ;
+                wdt:P570 ?deathDate ;
+                wdt:P4104 ?chAgentID .
+                wd:P4104 wdt:P1630 ?formatterurl.
+                OPTIONAL { ?pianist wdt:P18 ?pianistImage . }
+                BIND(IRI(REPLACE(?chAgentID, '^(.+)$', ?formatterurl)) AS ?chURL).
+                BIND(YEAR(?birthDate) AS ?birthYear)
+                BIND(YEAR(?deathDate) AS ?deathYear)
+                SERVICE wikibase:label { bd:serviceParam wikibase:language &quot;[AUTO_LANGUAGE],en&quot;. }
+              }
+            </code></pre>
+          </div>
+        </div>
+        <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>Wikidata’s out-of-the-box display templates are a wonderful way to easily create data visualizations, and do not require hosting your own dataset or creating your own visualization tools. They allow us to leverage the Carnegie Hall Agent ID property to surface interesting connections between CH’s named entities and external data/resources.</p>
+          <p><strong>further investigation</strong></p>
+          <p>It would be interesting to explore the legacies of other famous classical music pedagogues, such as <a href="http://www.wikidata.org/entity/Q368583" target="_blank">Leopold Auer</a> (violin) or <a href="http://www.wikidata.org/entity/Q77222" target="_blank">Julius Klengel</a> (cello), to see their impact on Carnegie Hall's history. In some cases this would offer the opportunity to improve the structured data in Wikidata to more fully express these teacher/student relationships.</p>
+          <ol>
+            <li>Leschetizky, Theodor | Grove Music. https://doi.org/10.1093/gmo/9781561592630.article.16474. Accessed 18 June 2020.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}

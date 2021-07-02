@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% load wagtailcore_tags %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <img class="card-img-top" src="{% static 'img/CH1924693_Medium_res_comp.jpg' %}" alt="Carnegie Hall ticket for Savoy Brown concert, September 14, 1971">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">CH’s Rock Explosion of 1971-72</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0011</h4>
+      <p class="card-text lead">Carnegie Hall experienced a veritable rock explosion during its 1971-72 season, with 70 rock concerts between September 1971 and June 1972.</p>
+      <p class="card-text lead">Here are two ways to learn about these events. First, explore a birthplace map of the rockers who performed on these concerts by clicking on the 🔴 red map markers!</p>
+    </div>
+  </div>
+  <!-- <div class="jumbotron text-center text-white bg-dark mx-2 mb-4">
+    <h1 class="card-title h1">CH’s Rock Explosion of 1971-72</h1>
+    <h4 class="my-4 h4 font-italic px-2">chdl-0011</h4>
+    <br>
+    <p class="lead text-left">Carnegie Hall experienced a veritable rock explosion during its 1971-72 season, with 70 rock concerts between September 1971 and June 1972.</p>
+    <p class="lead text-left">Here are two ways to learn about these events. First, explore a birthplace map of the rockers who performed on these concerts by clicking on the 🔴 red map markers!</p>
+  </div> -->
+  <!-- Interal page link to lab report goes here -->
+  <!-- If experiment data/visualization covers a lot of page space, remove data-toggle="collapse" here and on id="lab_report" -->
+  <!-- Include return navigation to Experiments page -->
+  <div class="container-fluid" pt-2>
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <div class="container-fluid">
+    <!-- data returned from query view goes here -->
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe
+      src="https://query.wikidata.org/embed.html#%23defaultView%3AMap%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20SELECT%20%3Fperson%20%3FpersonLabel%20%3FpersonImage%20%3FbirthPlaceLabel%20%3Flocation%20%28YEAR%28%3Fdate%29%20as%20%3Fyear%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%28IRI%28CONCAT%28%22https%3A%2F%2Fwww.carnegiehall.org%2FAbout%2FHistory%2FPerformance-History-Search%3Fq%3D%26dex%3Dprod_PHS%26pf%3D%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%28STR%28ENCODE_FOR_URI%28%3FpersonLabel%29%29%29%29%29%20AS%20%3FphsLink%29%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20WHERE%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20VALUES%20%3FchAgentID%20%7B%22124647%22%20%22124688%22%20%22124689%22%20%2211159%22%20%22124817%22%20%22124704%22%20%22124687%22%20%2269564%22%20%22124762%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2278264%22%20%2278265%22%20%22124741%22%20%22124613%22%20%22124724%22%20%22124725%22%20%22124782%22%20%2234392%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2256064%22%20%2253286%22%20%2280081%22%20%2269354%22%20%2269356%22%20%2273058%22%20%2264230%22%20%2261695%22%20%22124780%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2276004%22%20%22124716%22%20%2218592%22%20%2282746%22%20%2269353%22%20%22124781%22%20%2280080%22%20%22104468%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22104470%22%20%22104469%22%20%2263464%22%20%22124783%22%20%22124719%22%20%22124718%22%20%22104471%22%20%22124599%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22124600%22%20%2266122%22%20%22118317%22%20%2225403%22%20%2282747%22%20%2247555%22%20%2214113%22%20%2215294%22%20%22124610%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22124819%22%20%22124611%22%20%2263461%22%20%2282742%22%20%2233038%22%20%2239010%22%20%22124631%22%20%22119910%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22119907%22%20%2252619%22%20%2266121%22%20%2244128%22%20%2230315%22%20%2214578%22%20%2259400%22%20%2255994%22%20%2247902%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2238883%22%20%2244127%22%20%2214100%22%20%2273043%22%20%22104474%22%20%2220112%22%20%2282745%22%20%22124815%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22119909%22%20%22124706%22%20%22118316%22%20%22124634%22%20%2282748%22%20%2220869%22%20%2216156%22%20%2268198%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2223603%22%20%22124639%22%20%2263467%22%20%2245335%22%20%2263468%22%20%2263463%22%20%226445%22%20%2235199%22%20%22119911%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2248889%22%20%2263470%22%20%22124814%22%20%2224423%22%20%2257388%22%20%2259309%22%20%22124759%22%20%2217430%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2259983%22%20%22124755%22%20%2263462%22%20%2263466%22%20%22124643%22%20%2264306%22%20%22124646%22%20%2244507%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22124609%22%20%22124612%22%20%22124763%22%20%2210103%22%20%22124810%22%20%22124636%22%20%22124640%22%20%2282743%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2263471%22%20%2266130%22%20%22124644%22%20%2266129%22%20%2218504%22%20%2226354%22%20%22124809%22%20%2230297%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2255993%22%20%22124635%22%20%22124777%22%20%2218505%22%20%2250618%22%20%22124785%22%20%2263472%22%20%2278263%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22118315%22%20%2261577%22%20%2266128%22%20%22106792%22%20%22104472%22%20%22124616%22%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Fperson%20wdt%3AP569%20%3Fdate%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP19%20%3FbirthPlace%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP4104%20%3FchAgentID%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3FbirthPlace%20wdt%3AP625%20%3Flocation%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20OPTIONAL%20%7B%20%3Fperson%20wdt%3AP18%20%3FpersonImage%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20ORDER%20BY%20%3Fyear" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups" ></iframe>
+    </div>
+    <br>
+    <h5>Find out more about these events and their contemporary context in the chronological table below. Click on an event title to view details, and view the Billboard Hot 100 charts for that particular week.</h5>
+    <br>
+  </div>
+  <div class="container-fluid">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Date/Time</th>
+          <th scope="col">Event</th>
+          <th scope="col">Hot 100 Link</th>
+        </tr>
+      </thead>
+      {% for key, value in data.items %}
+      <tr>
+        <td scope="row">{{value.displayDate}}</td>
+        <td scope="row"><a href="{{value.eventURL}}" target="_blank">{{value.eventTitle}}</a></td>
+        <td scope="row"><a href="{{value.hot100}}"target="_blank"><em>Billboard</em> Hot 100 for this week</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <hr>
+  <!-- Lab report goes in this section -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div><br>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3" id="lab_report-title">
+      <h2>EXPERIMENT LABEL/TITLE</h2>
+      <p>CH’s Rock Explosion of 1971-72</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3" id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>We created a map to explore the birthplaces of rock performers from Carnegie Hall’s 1971-72 season, a table to link to information on each performance, and a link to the <a href="https://www.billboard.com/charts/hot-100" target="_blank"><em>Billboard</em> Hot 100</a> charts from the week of each concert.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <p>Carnegie Hall experienced a veritable rock explosion during its 1971-72 season, with 70 rock concerts between September 1971 and June 1972. The years following the 1964 appearances by the Beatles and Rolling Stones showed steady yearly increases in the number of rock events at Carnegie Hall, from one in 1967-68, four in 1968-69, and 13 in 1969-70. But even given a jump to 38 events in 1970-71, the 70 rock concerts in 1971-72 marked a nearly unprecedented increase.</p>
+        <p>As a means to begin exploring the origins, impact, and cultural context of this period in both rock music’s and Carnegie Hall’s history, we correlated 1) a birthplace map of the performers on these events; 2) links to detailed performance information (where available); and 3) links to the <em>Billboard</em> Hot 100 charts corresponding to the week of each event. Since the Hot 100 reflects album sales and popular tastes, it offers an interesting contemporary lens through which to consider these events. We used performance history data from our <a href="http://data.carnegiehall.org/" target="_blank">SPARQL endpoint</a> and data and display templates from Wikidata’s <a href="https://query.wikidata.org/" target="_blank">query service</a>.</p>
+        <div id="lab_report-methods">
+          <h2>METHODS</h2>
+          <p>We first ran a very basic SPARQL query to obtain the Carnegie Hall name IDs of the performers on these 70 concerts (e.g. this ID for <a href="http://data.carnegiehall.org/names/11159" target="_blank">Neil Young</a>), which we used to create a Wikidata query to plot the birthplace of each performer on a map, using the Wikidata property for Carnegie Hall Agent ID, P4104, and the query service’s built-in map template:</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "<http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <pre><code>
+              #defaultView:Map
+              SELECT ?person ?personLabel ?personImage ?birthPlaceLabel ?location (YEAR(?date) as ?year)
+              (IRI(CONCAT("https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=",
+                  (STR(ENCODE_FOR_URI(?personLabel))))) AS ?phsLink)
+
+              WHERE
+              {
+                VALUES ?chAgentID {"124647" "124688" "124689" "11159" "124817" "124704" "124687" "69564" "124762"
+                                            "78264" "78265" "124741" "124613" "124724" "124725" "124782" "34392"
+                                            "56064" "53286" "80081" "69354" "69356" "73058" "64230" "61695" "124780"
+                                            "76004" "124716" "18592" "82746" "69353" "124781" "80080" "104468"
+                                            "104470" "104469" "63464" "124783" "124719" "124718" "104471" "124599"
+                                            "124600" "66122" "118317" "25403" "82747" "47555" "14113" "15294" "124610"
+                                            "124819" "124611" "63461" "82742" "33038" "39010" "124631" "119910"
+                                            "119907" "52619" "66121" "44128" "30315" "14578" "59400" "55994" "47902"
+                                            "38883" "44127" "14100" "73043" "104474" "20112" "82745" "124815"
+                                            "119909" "124706" "118316" "124634" "82748" "20869" "16156" "68198"
+                                            "23603" "124639" "63467" "45335" "63468" "63463" "6445" "35199" "119911"
+                                            "48889" "63470" "124814" "24423" "57388" "59309" "124759" "17430"
+                                            "59983" "124755" "63462" "63466" "124643" "64306" "124646" "44507"
+                                            "124609" "124612" "124763" "10103" "124810" "124636" "124640" "82743"
+                                            "63471" "66130" "124644" "66129" "18504" "26354" "124809" "30297"
+                                            "55993" "124635" "124777" "18505" "50618" "124785" "63472" "78263"
+                                            "118315" "61577" "66128" "106792" "104472" "124616" }
+
+                  ?person wdt:P569 ?date ;
+                  wdt:P19 ?birthPlace ;
+                  wdt:P4104 ?chAgentID .
+                  ?birthPlace wdt:P625 ?location .
+                  OPTIONAL { ?person wdt:P18 ?personImage }
+                  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+              }
+              ORDER BY ?year
+            </code></pre>
+          </div>
+          <p>For the Carnegie Hall event data, we created a second query for our own <a href="http://data.carnegiehall.org/" target="
+            ">SPARQL endpoint</a> to retrieve the ID, title, and date for each event, along with a formatted link to our online Performance History Search, which provides a convenient means to view the details of each performance:</p>
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <pre><code>
+              PREFIX chgenres: <http://data.carnegiehall.org/genres/>
+              PREFIX dcterms: <http://purl.org/dc/terms/>
+              PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+              PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+              PREFIX mo: <http://purl.org/ontology/mo/>
+              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+              PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+              SELECT DISTINCT (str(?label) AS ?eventTitle) ?date ?phsLink
+              WHERE {
+                ?event rdfs:label ?label ;
+                mo:genre chgenres:39 ;
+                dcterms:date ?date ;
+                event:place ?place .
+                ?place rdfs:label ?venueLabel .
+                BIND(IRI(REPLACE(str(?event), "http://data.carnegiehall.org/events/", "https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&event=")) AS ?phsLink).
+                FILTER(?date >= xsd:dateTime("1971-09-01T00:00:00") && ?date <= xsd:dateTime("1972-09-01T00:00:00"))
+              }
+              ORDER BY ?date
+            </code></pre>
+          </div>
+          <p>Note that both this query and the performer ID query mentioned above make use of event-level statements about the genre of the performance (<code><a href="http://data.carnegiehall.org/genres/39" target="_blank">http://data.carnegiehall.org/genres/39</a></code>). To learn more about our approach to the concept of genre in our performance history data, please see this <a href="{% slugurl 'musical-genres-use-questions-and-challenges' %}">discussion post</a>.</p>
+          <p>Finally, we wrote a Python script that includes a SPARQL query our own <a href="http://data.carnegiehall.org/" target="
+            ">SPARQL endpoint</a> to retrieve the ID, title, the date/time for each event, and a formatted link to our online Performance History Search, which provides a convenient means to view the details of each performance. This is combined with some date processing to find the corresponding Billboard Hot 100 chart from the week of each event. Since the Hot 100 is published weekly on Saturday, each event date is used to calculate what the date for Saturday of that week would have been, which is then combined with the base URL for the Hot 100 charts:</p>
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <pre><code>
+              # !/usr/local/bin/python3.8.1
+              # ----Copyright (c) 2021 Carnegie Hall | The MIT License (MIT)----
+              # ----For the full license terms, please visit https://github.com/CarnegieHall/linked-data/blob/master/LICENSE----
+
+              ## Argument[0] is script to run
+              ## Argument[1] is path to JSON results from SPARQL query of CH rock events
+
+              import json
+              from datetime import datetime, timedelta
+              import dateutil.parser
+              from SPARQLWrapper import SPARQLWrapper, JSON
+
+              def get_next_weekday(startdate):
+                    """
+                    @startdate: given date, in format 'YYYY-MM-DD'
+                    """
+                    d = datetime.strptime(startdate, '%Y-%m-%d')
+                    t = timedelta((12 - d.weekday()) % 7)
+                    return (d + t).strftime('%Y-%m-%d')
+
+
+              query = 'PREFIX chgenres: <http://data.carnegiehall.org/genres/>'
+              query = query + 'PREFIX dcterms: <http://purl.org/dc/terms/>'
+              query = query + 'PREFIX event: <http://purl.org/NET/c4dm/event.owl#>'
+              query = query + 'PREFIX foaf: <http://xmlns.com/foaf/0.1/>'
+              query = query + 'PREFIX mo: <http://purl.org/ontology/mo/>'
+              query = query + 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
+              query = query + 'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>'
+              query = query + 'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'
+              query = query + 'select distinct ?event (str(?label) AS ?eventTitle) ?date ?phsLink where {'
+              query = query + '?event rdfs:label ?label ;'
+              query = query + 'mo:genre chgenres:39 ;'
+              query = query + 'dcterms:date ?date ;'
+              query = query + 'event:place ?place .'
+              query = query + '?place rdfs:label ?venueLabel .'
+              query = query + '''BIND(IRI(REPLACE(str(?event), "http://data.carnegiehall.org/events/", "https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&event=")) AS ?phsLink).'''
+              query = query + '''FILTER(?date >= xsd:dateTime("1971-09-01T00:00:00") && ?date <= xsd:dateTime("1972-09-01T00:00:00"))}'''
+              query = query + 'ORDER BY ?date'
+
+              sparql = SPARQLWrapper("http://3.248.151.50:7200/repositories/ch-lod")
+              sparql.setCredentials("anonymous", "practice!!!")
+              sparql.setQuery(query)
+              sparql.setReturnFormat(JSON)
+              results = sparql.query().convert()
+              data = {}
+
+              for result in results["results"]["bindings"]:
+                  eventID = result["event"]["value"]
+                  eventTitle = result["eventTitle"]["value"]
+                  eventDate = result["date"]["value"]
+                  href_phs = result["phsLink"]["value"]
+                  displayDate = dateutil.parser.isoparse(eventDate).strftime('%a %b %-d %Y at %-I%p')
+
+                  data[str(eventID)] = {}
+                  data[str(eventID)]['eventURL'] = href_phs
+                  data[str(eventID)]['eventTitle'] = eventTitle
+                  data[str(eventID)]['displayDate'] = displayDate
+
+                  eventDateTime = dateutil.parser.parse(eventDate)
+                  startdate = str(datetime.date(eventDateTime))
+                  hot100_date = get_next_weekday(startdate)
+                  href_hot100 = 'https://www.billboard.com/charts/hot-100/'
+                  text_hot100 = 'Billboard Hot 100 for this week'
+                  hot100_formattedLink = f'{href_hot100}{hot100_date}'
+                  data[str(eventID)]['hot100'] = hot100_formattedLink
+            </code></pre>
+          </div>
+        </div>
+        <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>Wikidata’s out-of-the-box display templates are a wonderful way to easily create data visualizations, and do not require hosting your own dataset or creating your own visualization tools. They allow us to leverage the Carnegie Hall Agent ID property to surface interesting connections between CH’s named entities and external data/resources. The Billboard Hot 100 charts offer an interesting contemporary lens through which to view these rock concerts, since the programmatic content of the performances directly correlates to popular trends in a way that more “typical” Carnegie Hall performances featuring canonical classical works usually does not.</p>
+          <p><strong>further investigation</strong></p>
+          <p>We hope to soon write a blog post or article exploring this fascinating season of concerts in greater depth. This would include research in our archival collections to consult board minutes and executive files from the seasons preceding and following 1971-72, in order to better understand both the sudden spike in rock bookings and the subsequent sharp drop-off.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="container data-display">
+
+
+  <div class="twelve columns">
+  <h3>Name: {{ data.display_name }}</h3>
+  </div>
+
+  <table class="u-full-width prop-table table">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>rdf:type</td>
+        <td>
+        	<ul>
+				{% for values in data.rdf_type %}
+				   <li><a href="{{values}}">{{values}}</a></li>
+				{% endfor %}
+			</ul>
+		</td>
+      </tr>
+      
+
+      {% if data.name %}
+      <tr>
+        <td>foaf:name</td>
+        <td>
+          <ul>
+            {% for values in data.name %}
+              <li>{{values}}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+
+
+
+      {% if data.comment %}
+      <tr>
+        <td>rdfs:comment</td>
+        <td>
+          <ul>
+            {% for values in data.comment %}
+              <li>{{values}}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if data.match %}
+      <tr>
+        <td>skos:exactMatch</td>
+        <td>
+          <ul>
+            {% for values in data.match %}
+              <li><a href="{{values}}">{{values}}</a></li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if data.profession_or_occupation %}
+      <tr>
+        <td>gndo:professionOrOccupation</td>
+        <td>
+          <ul>
+            {% for values in data.profession_or_occupation %}
+              <li><a href="{{values.0}}">{{values.1}}</a></li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if data.played_instrument %}
+      <tr>
+        <td>gndo:playedInstrument</td>
+        <td>
+          <ul>
+            {% for values in data.played_instrument %}
+              <li><a href="{{values.0}}">{{values.1}}</a></li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if data.parent %}
+      <tr>
+        <td>gn:parentFeature</td>
+        <td>
+          <ul>
+            {% for values in data.parent %}
+              <li><a href="{{values}}">{{values}}</a></li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+      {% if data.rdfs_label %}
+      <tr>
+        <td>rdfs:label</td>
+        <td>
+          <ul>
+            {% for values in data.rdfs_label %}
+              <li>{{values}}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+      {% if data.birth %}
+      <tr>
+        <td>schema:birthDate</td>
+        <td>
+          <ul>
+            {% for values in data.birth %}
+              <li>{{values}}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if data.death %}
+      <tr>
+        <td>schema:deathDate</td>
+        <td>
+          <ul>
+            {% for values in data.death %}
+              <li>{{values}}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+      {% if data.contains_place %}
+      <tr>
+        <td>schema:containsPlace</td>
+        <td>
+          <ul>
+            {% for values in data.contains_place %}
+              <li><a href="{{values}}">{{values}}</a></li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+
+
+      {% if data.unmapped %}
+	      	{% for values in data.unmapped %}
+	      	<tr>
+		        <td>{{values.0}}</td>
+		        <td>
+		        	<ul>
+						 <li><a href="{{values.1}}">{{values.1}}</a></li>
+					</ul>
+				</td>
+			</tr>
+			{% endfor %}
+      {% endif %}
+
+
+    </tbody>
+  </table>
+<span>View Data As: <a rel="nofollow" href="./jsonld">JSON-LD</a> | <a rel="nofollow" href="./nt">N-Triples</a> | <a rel="nofollow" href="./turtle">Turtle</a> | <a rel="nofollow" href="./n3">N3</a> | <a rel="nofollow" href="./xml">XML</a></span>
+</div>
+
+
+
+{% endblock %}

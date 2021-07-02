@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">This Day in Carnegie Hall History</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0007</h4>
+      <p class="card-text lead">Select a year to see events on this day and the Billboard Hot 100 for that week!</p>
+    </div>
+  </div>
+  <hr>
+  <!-- <div class="container-fluid pt-3">
+    <h3 class="font-italic font-weight-light">Select a year to see events on this day and the Billboard Hot 100 for that week!</h3>
+  </div> -->
+  <div class="container py-3">
+    <div class="form-row">
+      <div class="col-3">
+        <form action="/experiments/chdl-0007/" method=post>
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid pt-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+    <br>
+    <br>
+  </div>
+</div>
+{% endblock %}

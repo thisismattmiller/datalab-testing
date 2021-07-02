@@ -1,0 +1,523 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-info text-white">SPARQL Query</h1><hr>
+
+
+
+      <div>Data last updated: <a href="/void/turtle/" id="data-last-updated"></a></div>
+      <div>Example Queries: <select id="examples"></select></div>
+      
+
+    <div id="yasgui"></div>
+    <script>
+
+      let examples = {
+
+
+        'Select first 100 triples': 
+
+`SELECT * WHERE {
+  ?subject ?property ?object
+} LIMIT 100`,
+
+
+
+        'Find people':
+`#Find people
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+select ?person ?name where {
+    ?person a foaf:Person ;
+    foaf:name ?name .
+}
+limit 50`,
+
+
+
+
+        'Find triples about a specific person':
+`#Find triples about a specific person
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+select ?s ?p ?o where {
+    ?s ?p ?o ;
+       a foaf:Person ;
+       foaf:name "George Gershwin" .
+}`,    
+
+        'Find works':
+`#Find works
+PREFIX mo: <http://purl.org/ontology/mo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?work ?title where {
+    ?work a mo:MusicalWork ;
+            rdfs:label ?title .
+}
+limit 50`,
+
+
+'Find works by string in the title (case-insensitive)':
+`#Find works by string in the title (case-insensitive)
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select distinct ?instance ?composer ?title where {
+  ?instance a <http://schema.org/MusicComposition> ;
+              dcterms:creator ?creator ;
+              rdfs:label ?title .
+  ?creator foaf:name ?composer
+              filter regex(?title, "Piano Sonata", "i")
+}
+limit 50
+`,
+
+'Find performances of a specific work':
+`#Find performances of a specific work
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX mo: <http://purl.org/ontology/mo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?performanceID ?date ?performerID ?name where {
+    ?performanceID event:product ?workPerformance ;
+                   dcterms:date ?date .
+    ?workPerformance event:product <http://data.carnegiehall.org/works/25116> ;
+                     mo:performer ?performerID .
+    ?performerID foaf:name ?name .
+}`,
+
+
+'Find events':
+`#Find events
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?event ?label where {
+    ?event a event:Event ;
+             rdfs:label ?label .
+}
+limit 50`,
+
+'Find triples about events in a specific year':
+`#Find triples about events in a specific year
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?event ?date ?title where {
+    ?event a event:Event ;
+       dcterms:date ?date ;
+       rdfs:label ?title .
+    filter (year(?date) = 1900)
+}
+limit 50
+`,
+
+'Find venues':
+`#Find venues
+PREFIX schema: <http://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?venue ?label where {
+    ?venue a schema:EventVenue ;
+           rdfs:label ?label .
+}
+limit 50
+`,
+
+'Find instruments':
+`#Find instruments
+PREFIX mo: <http://purl.org/ontology/mo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?instrument ?label where {
+    ?instrument a mo:Instrument ;
+           rdfs:label ?label .
+}
+limit 50`,
+
+'Find ensembles URIs':
+`#Find ensembles
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+select ?instrument ?label where {
+    ?instrument a schema:PerformingGroup ;
+           rdfs:label ?label .
+}
+limit 50`,
+
+'Find roles':
+`#Find roles
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+select ?role ?label where {
+    ?role a schema:Role ;
+           rdfs:label ?label .
+}
+limit 50`,
+
+'Top 25 works at Carnegie Hall':
+`#Top 25 works at CH
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?composerName ?workTitle (COUNT(DISTINCT ?workPerf) AS ?numberOfPerformances)
+WHERE {
+    ?work dcterms:creator ?composer ;
+          rdfs:label ?workTitle .
+    ?composer foaf:name ?composerName .
+    ?event event:product ?workPerf .
+    ?workPerf event:product ?work .
+    MINUS { ?composer foaf:name "Anonymous" . }
+}
+GROUP BY ?composerName ?workTitle
+ORDER BY DESC(?numberOfPerformances)
+LIMIT 25`,
+
+'Performers with the most CH performances':
+`#Performers with the most CH performances
+PREFIX chnames: <http://data.carnegiehall.org/names/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX mo: <http://purl.org/ontology/mo/>
+
+SELECT ?performerName (COUNT (DISTINCT(?event)) AS ?numberOfPerformances)
+WHERE {
+    {
+    ?event mo:conductor ?performerID .
+    ?performerID foaf:name ?performerName .
+    }
+  UNION
+  {
+    ?event event:product ?workPerformance .
+    ?workPerformance mo:performer ?performerID .
+    ?performerID foaf:name ?performerName .
+  }
+}
+GROUP BY ?performerName
+ORDER BY DESC(?numberOfPerformances)
+LIMIT 25`,
+
+'Pianists with the most CH performances':
+`#Pianists with the most CH performances
+PREFIX chroles: <http://data.carnegiehall.org/vocabulary/roles/>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT ?performerName (COUNT (DISTINCT(?event)) AS ?numberOfPerformances)
+WHERE {
+    ?event event:product ?workPerformance .
+    ?workPerformance chroles:piano ?performerID .
+    ?performerID foaf:name ?performerName .
+}
+GROUP BY ?performerName
+ORDER BY DESC(?numberOfPerformances)
+LIMIT 25`,
+
+'Find alto saxophonists born in November':
+`#Find alto saxophonists born in November
+ PREFIX chinstruments: <http://data.carnegiehall.org/instruments/>
+ PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+ PREFIX gndo: <http://d-nb.info/standards/elementset/gnd#>
+ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ PREFIX schema: <http://schema.org/>
+ 
+ select ?performer ?name ?birthPlace ?birthDate where {
+     ?performer foaf:name ?name ;
+                dbpedia-owl:birthPlace ?birthPlace ;
+                schema:birthDate ?birthDate ;
+                gndo:playedInstrument ?instrument .
+     ?instrument rdfs:label "alto saxophone" .
+     FILTER(month(?birthDate) = 11)
+ }
+ ORDER BY ASC(?birthDate)`,
+
+'Find entities by birth year':
+`#Find entities by birth year
+PREFIX schema: <http://schema.org/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?subject ?name ?date
+WHERE {
+    ?subject schema:birthDate ?date;
+             foaf:name ?name
+    filter contains(str(?date), "1801")
+}`,
+
+
+'How many composers die at certain age':
+`#How many composers die at certain age
+PREFIX gndo: <http://d-nb.info/standards/elementset/gnd#>
+PREFIX marcRel: <http://id.loc.gov/vocabulary/relators/>
+PREFIX schema: <http://schema.org/>
+
+   # Query to find all composers who have already died 
+   # calculate their age (full years) at death
+   # count how many of them died at each age
+
+SELECT ?age  (COUNT (DISTINCT ?a) AS ?count) WHERE {
+        ?a gndo:professionOrOccupation marcRel:cmp . #occupation of composer
+        ?a schema:birthDate ?birth_date . 
+        ?a schema:deathDate ?death_date .
+      FILTER(?age > 10 && ?age < 100) . #ignore outlyers, several of which are probably errors
+        BIND( year(?death_date) - year(?birth_date) - if(month(?death_date)<month(?birth_date) || (month(?death_date)=month(?birth_date) && day(?death_date)<day(?birth_date)),1,0) as ?age )
+        # calculate the age, precisely to the day (times and timezones ignored)
+} 
+GROUP BY ?age
+ORDER BY ?age`,
+
+'How many pianists die at certain age':
+`#How many pianists die at certain age
+PREFIX chinstruments: <http://data.carnegiehall.org/instruments/>
+PREFIX gndo: <http://d-nb.info/standards/elementset/gnd#>
+PREFIX schema: <http://schema.org/>
+
+   # Query to find all composers who have already died 
+   # calculate their age (full years) at death
+   # count how many of them died at each age
+
+SELECT ?age  (COUNT (DISTINCT ?a) AS ?count) WHERE {
+        ?a gndo:playedInstrument chinstruments:783 . #pianist
+        ?a schema:birthDate ?birth_date . 
+        ?a schema:deathDate ?death_date .
+     FILTER(?age > 10 && ?age < 100) . #ignore outlyers, several of which are probably errors
+        BIND( year(?death_date) - year(?birth_date) - if(month(?death_date)<month(?birth_date) || (month(?death_date)=month(?birth_date) && day(?death_date)<day(?birth_date)),1,0) as ?age )
+        # calculate the age, precisely to the day (times and timezones ignored)
+} 
+GROUP BY ?age
+ORDER BY ?age`,
+
+'Number of works by Bach performed each year':
+`#Number of works by Bach performed each year
+PREFIX chnames: <http://data.carnegiehall.org/names/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?yearOfEvent (COUNT(?event) AS ?numberOfWorks)
+WHERE {
+  ?work dcterms:creator chnames:1003166 .
+  ?event dcterms:date ?date
+         BIND (str(YEAR(?date)) AS ?yearOfEvent)
+  ?event event:product ?workPerf .
+  ?workPerf event:product ?work
+}
+GROUP BY ?yearOfEvent
+ORDER BY ?yearOfEvent`,
+
+'Performers born in Vienna that have played works by Schubert':
+`#Performers born in Vienna that have played works by Schubert
+PREFIX chnames: <http://data.carnegiehall.org/names/>
+PREFIX chworks: <http://data.carnegiehall.org/works/>
+PREFIX dbp: <http://dbpedia.org/ontology/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX mo: <http://purl.org/ontology/mo/>
+
+SELECT DISTINCT ?performer ?name
+WHERE {
+    ?performer dbp:birthPlace <http://sws.geonames.org/2761369/> ;
+               foaf:name ?name .
+    ?workPerf event:product ?work ;
+              mo:performer ?performer .
+    ?work dcterms:creator chnames:1002249 .
+}`,
+
+
+'Nobel Peace Prize Winners that have spoken at CH':
+`#Nobel Peace Prize Winners that have spoken at CH
+PREFIX wdt:  <http://www.wikidata.org/prop/direct/>
+PREFIX wd:  <http://www.wikidata.org/entity/>
+PREFIX bd:  <http://www.bigdata.com/rdf#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX  wikibase:  <http://wikiba.se/ontology#>
+SELECT * 
+{
+    SERVICE <https://query.wikidata.org/sparql> 
+    {
+        SELECT DISTINCT ?item ?ch_ID ?itemLabel (YEAR(?when) AS ?date) WHERE
+        {
+          ?item wdt:P4104 ?chAgent_id.
+          ?item p:P166 ?awardStat.
+          ?awardStat ps:P166 wd:Q35637.
+          ?awardStat pq:P585 ?when.
+            wd:P4104 wdt:P1630 ?formatterurl .
+            BIND(IRI(REPLACE(?chAgent_id, '^(.+)$', ?formatterurl)) AS ?ch_ID).
+          SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }
+        }
+    }
+}
+ORDER BY asc(?date)`,
+
+'This day in CH history':
+`#This day in CH history
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?event ?title (CONCAT(STR(MONTH(?date)),
+                     '/',
+                      STR(DAY(?date)),
+                      '/',
+                     STR(YEAR(?date))) as ?displayDate)
+where
+ {
+    BIND(MONTH(NOW()) AS ?nowMonth)
+    BIND(DAY(NOW()) AS ?nowDay)
+
+        ?event a event:Event ;
+       dcterms:date ?date ;
+       rdfs:label ?title .
+    FILTER (MONTH(?date) = ?nowMonth && DAY(?date) = ?nowDay)
+}
+ORDER BY ?date`,
+
+'Whose birthday is today?':
+`#Whose birthday is today?
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+PREFIX schema: <http://schema.org/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?personID ?personName ?birthPlaceLabel (YEAR(?date) as ?year) 
+WHERE
+{
+    BIND(MONTH(NOW()) AS ?nowMonth)
+    BIND(DAY(NOW()) AS ?nowDay)
+
+    ?personID schema:birthDate ?date ;
+            foaf:name ?personName ;
+            dbo:birthPlace ?birthPlace .
+    ?birthPlace rdfs:label ?birthPlaceLabel .
+    FILTER (MONTH(?date) = ?nowMonth && DAY(?date) = ?nowDay)
+
+}
+ORDER BY ?year
+LIMIT 100`,
+
+'Whose birthday is this month?':
+`#Whose birthday this month?
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+PREFIX schema: <http://schema.org/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?personID ?personName ?birthPlaceLabel (YEAR(?date) as ?year) 
+WHERE
+{
+    BIND(MONTH(NOW()) AS ?nowMonth)
+
+    ?personID schema:birthDate ?date ;
+            foaf:name ?personName ;
+            dbo:birthPlace ?birthPlace .
+    ?birthPlace rdfs:label ?birthPlaceLabel .
+    FILTER (MONTH(?date) = ?nowMonth)
+
+}
+ORDER BY ?year
+LIMIT 100`
+      }
+
+
+
+      const yasgui = new Yasgui(document.getElementById("yasgui"), {
+        requestConfig: { endpoint: "/sparql/" },
+        copyEndpointOnNewTab: false,
+      });
+
+
+
+      // yasgui.setQuery("select * where {...}");
+
+      // yasgui.getTab().setQuery(examples['Performers with the most CH performances'])
+
+
+      // build the example queries select
+      let exampleSelect = document.getElementById('examples')
+
+      for (let e of Object.keys(examples)){
+
+        let el = document.createElement('option')
+        el.value = e
+        el.text = e
+        exampleSelect.appendChild(el)
+
+      }
+
+      // when they change the dropdown
+      exampleSelect.addEventListener('change',(event)=>{
+        yasgui.getTab().setQuery(examples[event.target.value])
+        yasgui.getTab().query()
+      })
+
+
+
+
+      // update the last update thing
+        var request = new XMLHttpRequest();
+        request.open('GET', '/void/jsonld', true);
+
+        request.onload = function() {
+          if (this.status >= 200 && this.status < 400) {
+            // Success!
+            var data = JSON.parse(this.response);
+            data.forEach((d)=>{
+                // if (d['@']==)
+                if (d['http://purl.org/dc/terms/modified']){
+                    if (d['http://purl.org/dc/terms/modified'][0]){
+                        console.log(d['http://purl.org/dc/terms/modified'][0])    
+                        if (d['http://purl.org/dc/terms/modified'][0]['@value']){
+                            document.getElementById('data-last-updated').innerHTML=d['http://purl.org/dc/terms/modified'][0]['@value'];
+                        }                        
+                    }                    
+                }
+            })
+          } else {
+            // We reached our target server, but it returned an error
+          }
+        };
+        request.onerror = function() {
+          // There was a connection error of some sort
+        };
+        request.send();      
+
+
+
+
+
+        // if the example is passed and it exsits in the example obj
+        // load it and execcute it, a way to link to examples, for exmaple:
+        // /sparql?example=Performers born in Vienna that have played works by Schubert
+
+        let url = new URL(window.location.href);
+        let c = url.searchParams.get("example");
+        if (c && examples[c]){
+          yasgui.getTab().setQuery(examples[c])
+          yasgui.getTab().query()
+
+
+          exampleSelect.value = c;
+
+
+        }
+
+
+
+    </script>
+
+
+
+
+    <style>
+      .yasgui .autocompleteWrapper {
+        display: none !important;
+      }
+
+      .controlbar{
+        float: right;
+      }
+    </style>
+
+
+  </div>
+</div>
+{% endblock %}

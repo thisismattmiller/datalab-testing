@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_85f8289e38c9408c8d58839a9705c0b9 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_85f8289e38c9408c8d58839a9705c0b9" ></div>
+        
+</body>
+<script>    
+    
+            var map_85f8289e38c9408c8d58839a9705c0b9 = L.map(
+                "map_85f8289e38c9408c8d58839a9705c0b9",
+                {
+                    center: [51.5074, 0.1278],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 3,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_26933bba3e584a828f5507076fd34a1a = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_85f8289e38c9408c8d58839a9705c0b9);
+        
+    
+            var marker_cluster_51fd0d59e9024824a77cac74636f1755 = L.markerClusterGroup(
+                {}
+            );
+            map_85f8289e38c9408c8d58839a9705c0b9.addLayer(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+            var marker_60bc592ce0ea46c78a3d2e5111c325c3 = L.marker(
+                [51.48, 0.0],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_e0b6d94b59c940e28d74c409e15de95b = L.popup({"maxWidth": 2650});
+
+        
+            var html_e551f04e4550444dbb4ba8fbb04c0a4b = $(`<div id="html_e551f04e4550444dbb4ba8fbb04c0a4b" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Henry%20VIII%2C%20King%20of%20England" target="_blank">Henry VIII, King of England</a></h4><br>Born <strong>1491</strong> in Greenwich</h3><br><a href="http://www.wikidata.org/entity/Q38370" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_e0b6d94b59c940e28d74c409e15de95b.setContent(html_e551f04e4550444dbb4ba8fbb04c0a4b);
+        
+
+        marker_60bc592ce0ea46c78a3d2e5111c325c3.bindPopup(popup_e0b6d94b59c940e28d74c409e15de95b)
+        ;
+
+        
+    
+    
+            var marker_f37f96f8a5e0481dab61551365d2e87e = L.marker(
+                [46.20222, 6.14569],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_e172e27424844e69b2188b48c5fb1e0d = L.popup({"maxWidth": 2650});
+
+        
+            var html_37f1484119624962bd3127c7e85587b3 = $(`<div id="html_37f1484119624962bd3127c7e85587b3" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Jean-Jacques%20Rousseau" target="_blank">Jean-Jacques Rousseau</a></h4><br>Born <strong>1712</strong> in Geneva</h3><br><a href="http://www.wikidata.org/entity/Q6527" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_e172e27424844e69b2188b48c5fb1e0d.setContent(html_37f1484119624962bd3127c7e85587b3);
+        
+
+        marker_f37f96f8a5e0481dab61551365d2e87e.bindPopup(popup_e172e27424844e69b2188b48c5fb1e0d)
+        ;
+
+        
+    
+    
+            var marker_56d98dc5da7543e1966719acaf87fea3 = L.marker(
+                [51.48158, 11.97947],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_0b0811faee8144e383e61c09b11758c2 = L.popup({"maxWidth": 2650});
+
+        
+            var html_df1e12a3596a49d7be4531dfe520e35a = $(`<div id="html_df1e12a3596a49d7be4531dfe520e35a" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Robert%20Franz" target="_blank">Robert Franz</a></h4><br>Born <strong>1815</strong> in Halle</h3><br><a href="http://www.wikidata.org/entity/Q561967" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_0b0811faee8144e383e61c09b11758c2.setContent(html_df1e12a3596a49d7be4531dfe520e35a);
+        
+
+        marker_56d98dc5da7543e1966719acaf87fea3.bindPopup(popup_0b0811faee8144e383e61c09b11758c2)
+        ;
+
+        
+    
+    
+            var marker_3c79753291644e53bc16604a06273359 = L.marker(
+                [49.27746, 10.68674],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_e2dd16329efb4b43bca56bf71f760cb3 = L.popup({"maxWidth": 2650});
+
+        
+            var html_a8d5c509feb44c62bc671d9adbc783d5 = $(`<div id="html_a8d5c509feb44c62bc671d9adbc783d5" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Oskar%20von%20Redwitz" target="_blank">Oskar von Redwitz</a></h4><br>Born <strong>1823</strong> in Lichtenau</h3><br><a href="http://www.wikidata.org/entity/Q91175" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_e2dd16329efb4b43bca56bf71f760cb3.setContent(html_a8d5c509feb44c62bc671d9adbc783d5);
+        
+
+        marker_3c79753291644e53bc16604a06273359.bindPopup(popup_e2dd16329efb4b43bca56bf71f760cb3)
+        ;
+
+        
+    
+    
+            var marker_dec61a2ccc14413dab7428ff8c002223 = L.marker(
+                [48.066666666667, 17.066666666667],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_2e316699faf0491c83fb9e85eaf0fc99 = L.popup({"maxWidth": 2650});
+
+        
+            var html_7af1eefa7ab24233832b7a2b2ade976d = $(`<div id="html_7af1eefa7ab24233832b7a2b2ade976d" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Joseph%20Joachim" target="_blank">Joseph Joachim</a></h4><br>Born <strong>1831</strong> in Kittsee</h3><br><a href="http://www.wikidata.org/entity/Q159976" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_2e316699faf0491c83fb9e85eaf0fc99.setContent(html_7af1eefa7ab24233832b7a2b2ade976d);
+        
+
+        marker_dec61a2ccc14413dab7428ff8c002223.bindPopup(popup_2e316699faf0491c83fb9e85eaf0fc99)
+        ;
+
+        
+    
+    
+            var marker_25c52bcf02d248dbad7f8fba2d07f3a7 = L.marker(
+                [64.15, -21.883333333333],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_19d102321d624c4f90f3423ca425e046 = L.popup({"maxWidth": 2650});
+
+        
+            var html_f3f9c493b162401183a300b3e6fb26b2 = $(`<div id="html_f3f9c493b162401183a300b3e6fb26b2" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Sveinbj%C3%B6rn%20Sveinbj%C3%B6rnsson" target="_blank">Sveinbjörn Sveinbjörnsson</a></h4><br>Born <strong>1847</strong> in Reykjavík</h3><br><a href="http://www.wikidata.org/entity/Q548023" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_19d102321d624c4f90f3423ca425e046.setContent(html_f3f9c493b162401183a300b3e6fb26b2);
+        
+
+        marker_25c52bcf02d248dbad7f8fba2d07f3a7.bindPopup(popup_19d102321d624c4f90f3423ca425e046)
+        ;
+
+        
+    
+    
+            var marker_1632c2e471c74d4da85a50118cf7f5f9 = L.marker(
+                [47.376666666667, 8.025],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_e9d1dab71ca346869442c3a4e518e75d = L.popup({"maxWidth": 2650});
+
+        
+            var html_2adf7eb1f9214c87ac421b17c4849c8e = $(`<div id="html_2adf7eb1f9214c87ac421b17c4849c8e" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Hans%20Huber" target="_blank">Hans Huber</a></h4><br>Born <strong>1852</strong> in Eppenberg-Wöschnau</h3><br><a href="http://www.wikidata.org/entity/Q673938" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_e9d1dab71ca346869442c3a4e518e75d.setContent(html_2adf7eb1f9214c87ac421b17c4849c8e);
+        
+
+        marker_1632c2e471c74d4da85a50118cf7f5f9.bindPopup(popup_e9d1dab71ca346869442c3a4e518e75d)
+        ;
+
+        
+    
+    
+            var marker_e86981ffe648460a98a86fdc296e9811 = L.marker(
+                [52.001, -4.226],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_d0b416e05e194387879e94239efd7bbf = L.popup({"maxWidth": 2650});
+
+        
+            var html_b197c77f56fb42219f00ed43fa23d72f = $(`<div id="html_b197c77f56fb42219f00ed43fa23d72f" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Evan%20Stephens" target="_blank">Evan Stephens</a></h4><br>Born <strong>1854</strong> in Pencader</h3><br><em>No Wikidata Item</em></div>`)[0];
+            popup_d0b416e05e194387879e94239efd7bbf.setContent(html_b197c77f56fb42219f00ed43fa23d72f);
+        
+
+        marker_e86981ffe648460a98a86fdc296e9811.bindPopup(popup_d0b416e05e194387879e94239efd7bbf)
+        ;
+
+        
+    
+    
+            var marker_3c15c894cfaf42a6adf3d37953e33e43 = L.marker(
+                [41.15, -73.775],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_a46bb69ab1664cb7be570c522dfc6084 = L.popup({"maxWidth": 2650});
+
+        
+            var html_2e9be39d3beb4116ba37d93e8ce331fb = $(`<div id="html_2e9be39d3beb4116ba37d93e8ce331fb" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Edward%20Fielding" target="_blank">Edward Fielding</a></h4><br>Born <strong>1862</strong> in Westchester County</h3><br><em>No Wikidata Item</em></div>`)[0];
+            popup_a46bb69ab1664cb7be570c522dfc6084.setContent(html_2e9be39d3beb4116ba37d93e8ce331fb);
+        
+
+        marker_3c15c894cfaf42a6adf3d37953e33e43.bindPopup(popup_a46bb69ab1664cb7be570c522dfc6084)
+        ;
+
+        
+    
+    
+            var marker_eb67d6c363a84730a1cc880bd0fbd2d1 = L.marker(
+                [51.939722222222, 15.505],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_a67b0ffad25f49d3a836c896c0e80a3a = L.popup({"maxWidth": 2650});
+
+        
+            var html_5089d4f48aef45ca9b7d005fb5d8a025 = $(`<div id="html_5089d4f48aef45ca9b7d005fb5d8a025" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Otto%20Julius%20Bierbaum" target="_blank">Otto Julius Bierbaum</a></h4><br>Born <strong>1865</strong> in Zielona Góra</h3><br><a href="http://www.wikidata.org/entity/Q64001" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_a67b0ffad25f49d3a836c896c0e80a3a.setContent(html_5089d4f48aef45ca9b7d005fb5d8a025);
+        
+
+        marker_eb67d6c363a84730a1cc880bd0fbd2d1.bindPopup(popup_a67b0ffad25f49d3a836c896c0e80a3a)
+        ;
+
+        
+    
+    
+            var marker_2bcaa24f647647acbccc766c2752301b = L.marker(
+                [51.521666666667, -0.12611111111111],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_a91fabda67fb44feb29605c940057151 = L.popup({"maxWidth": 2650});
+
+        
+            var html_e8cb102f2d9344d883607699f0d31353 = $(`<div id="html_e8cb102f2d9344d883607699f0d31353" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Frances%20Chesterton" target="_blank">Frances Chesterton</a></h4><br>Born <strong>1869</strong> in Bloomsbury</h3><br><a href="http://www.wikidata.org/entity/Q21664424" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_a91fabda67fb44feb29605c940057151.setContent(html_e8cb102f2d9344d883607699f0d31353);
+        
+
+        marker_2bcaa24f647647acbccc766c2752301b.bindPopup(popup_a91fabda67fb44feb29605c940057151)
+        ;
+
+        
+    
+    
+            var marker_c652eb85edaa4bf49f42d5c2f08b5915 = L.marker(
+                [39.8461, -82.8117],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_3fffe3dc9ec0466aae0816f91ded951c = L.popup({"maxWidth": 2650});
+
+        
+            var html_9fcda7cbf2cc4f89bc1126a7cbc1fe4e = $(`<div id="html_9fcda7cbf2cc4f89bc1126a7cbc1fe4e" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Oley%20Speaks" target="_blank">Oley Speaks</a></h4><br>Born <strong>1874</strong> in Canal Winchester</h3><br><a href="http://www.wikidata.org/entity/Q2512925" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_3fffe3dc9ec0466aae0816f91ded951c.setContent(html_9fcda7cbf2cc4f89bc1126a7cbc1fe4e);
+        
+
+        marker_c652eb85edaa4bf49f42d5c2f08b5915.bindPopup(popup_3fffe3dc9ec0466aae0816f91ded951c)
+        ;
+
+        
+    
+    
+            var marker_7a8bc26bc1ed41c09c3c2a9c2c13ba6a = L.marker(
+                [57.566666666667, 15.15],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_e397184efd9b43709c47b6493b57abc2 = L.popup({"maxWidth": 2650});
+
+        
+            var html_e40d1d43c6164f07a05bd962be2ea9b9 = $(`<div id="html_e40d1d43c6164f07a05bd962be2ea9b9" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Sigurd%20von%20Koch" target="_blank">Sigurd von Koch</a></h4><br>Born <strong>1879</strong> in Agnö</h3><br><a href="http://www.wikidata.org/entity/Q5916637" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_e397184efd9b43709c47b6493b57abc2.setContent(html_e40d1d43c6164f07a05bd962be2ea9b9);
+        
+
+        marker_7a8bc26bc1ed41c09c3c2a9c2c13ba6a.bindPopup(popup_e397184efd9b43709c47b6493b57abc2)
+        ;
+
+        
+    
+    
+            var marker_8248f71dc70f423cbe0984d223f389dc = L.marker(
+                [37.98225, 13.69729],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_376e270265454e2babce6364e502413d = L.popup({"maxWidth": 2650});
+
+        
+            var html_8dcec54d1c04445183d5b95e13292c13 = $(`<div id="html_8dcec54d1c04445183d5b95e13292c13" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Giuseppe%20Mul%C3%A8" target="_blank">Giuseppe Mulè</a></h4><br>Born <strong>1885</strong> in Termini Imerese</h3><br><a href="http://www.wikidata.org/entity/Q3771066" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_376e270265454e2babce6364e502413d.setContent(html_8dcec54d1c04445183d5b95e13292c13);
+        
+
+        marker_8248f71dc70f423cbe0984d223f389dc.bindPopup(popup_376e270265454e2babce6364e502413d)
+        ;
+
+        
+    
+    
+            var marker_2dc5b59646964934b1e2e2d7114640b7 = L.marker(
+                [-22.908333333333, -43.196388888889],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_41c19c08113c47daa2250287ed36c47c = L.popup({"maxWidth": 2650});
+
+        
+            var html_d86f412c3cc641ff91deda5eaffe82bc = $(`<div id="html_d86f412c3cc641ff91deda5eaffe82bc" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Luciano%20Gallet" target="_blank">Luciano Gallet</a></h4><br>Born <strong>1893</strong> in Rio de Janeiro</h3><br><a href="http://www.wikidata.org/entity/Q6696820" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_41c19c08113c47daa2250287ed36c47c.setContent(html_d86f412c3cc641ff91deda5eaffe82bc);
+        
+
+        marker_2dc5b59646964934b1e2e2d7114640b7.bindPopup(popup_41c19c08113c47daa2250287ed36c47c)
+        ;
+
+        
+    
+    
+            var marker_131560a5d64f4f4eb9dee3f6de31055e = L.marker(
+                [39.766666666667, -84.2],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_1871dd3c2a5149538f4f17de52b28f0d = L.popup({"maxWidth": 2650});
+
+        
+            var html_26392bb17541487380bf23ebab624f55 = $(`<div id="html_26392bb17541487380bf23ebab624f55" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Frank%20Mannheimer" target="_blank">Frank Mannheimer</a></h4><br>Born <strong>1896</strong> in Dayton</h3><br><em>No Wikidata Item</em></div>`)[0];
+            popup_1871dd3c2a5149538f4f17de52b28f0d.setContent(html_26392bb17541487380bf23ebab624f55);
+        
+
+        marker_131560a5d64f4f4eb9dee3f6de31055e.bindPopup(popup_1871dd3c2a5149538f4f17de52b28f0d)
+        ;
+
+        
+    
+    
+            var marker_a2fc09f57c5f41bb8406c39095d868a5 = L.marker(
+                [40.5878, -73.8081],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_1927e3d4f8284afa8b691ee408f31fb4 = L.popup({"maxWidth": 2650});
+
+        
+            var html_4db137f8350f48679ce1eeb35ba638cd = $(`<div id="html_4db137f8350f48679ce1eeb35ba638cd" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Richard%20Rodgers" target="_blank">Richard Rodgers</a></h4><br>Born <strong>1902</strong> in Hammels</h3><br><a href="http://www.wikidata.org/entity/Q269094" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_1927e3d4f8284afa8b691ee408f31fb4.setContent(html_4db137f8350f48679ce1eeb35ba638cd);
+        
+
+        marker_a2fc09f57c5f41bb8406c39095d868a5.bindPopup(popup_1927e3d4f8284afa8b691ee408f31fb4)
+        ;
+
+        
+    
+    
+            var marker_25cc144b63c6405db2795306c278bdcc = L.marker(
+                [44.096388888889, -87.675],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_d02dbfd91b1445f3af03eb856003cf9e = L.popup({"maxWidth": 2650});
+
+        
+            var html_4de574e7aff943d887f547b5111ec928 = $(`<div id="html_4de574e7aff943d887f547b5111ec928" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Wilbur%20Schwandt" target="_blank">Wilbur Schwandt</a></h4><br>Born <strong>1904</strong> in Manitowoc</h3><br><a href="http://www.wikidata.org/entity/Q2570191" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_d02dbfd91b1445f3af03eb856003cf9e.setContent(html_4de574e7aff943d887f547b5111ec928);
+        
+
+        marker_25cc144b63c6405db2795306c278bdcc.bindPopup(popup_d02dbfd91b1445f3af03eb856003cf9e)
+        ;
+
+        
+    
+    
+            var marker_a9a30f69c68043d78db9767012bc6392 = L.marker(
+                [39.133333333333, -84.5],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_d9144122c2e04db7ac156750481364a8 = L.popup({"maxWidth": 2650});
+
+        
+            var html_0521c7ea015b4fb6bdf3d40272b96738 = $(`<div id="html_0521c7ea015b4fb6bdf3d40272b96738" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Jimmy%20Mundy" target="_blank">Jimmy Mundy</a></h4><br>Born <strong>1907</strong> in Cincinnati</h3><br><a href="http://www.wikidata.org/entity/Q1689400" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_d9144122c2e04db7ac156750481364a8.setContent(html_0521c7ea015b4fb6bdf3d40272b96738);
+        
+
+        marker_a9a30f69c68043d78db9767012bc6392.bindPopup(popup_d9144122c2e04db7ac156750481364a8)
+        ;
+
+        
+    
+    
+            var marker_2af525b80b924144a8b6f5c1de5944b3 = L.marker(
+                [36.89, -83.85],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_d46c3c0814e347f888710b9fa97a1079 = L.popup({"maxWidth": 2650});
+
+        
+            var html_5d0eddde84ba40eeb1e2177bc53e1f95 = $(`<div id="html_5d0eddde84ba40eeb1e2177bc53e1f95" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Sarah%20Ogan%20Gunning" target="_blank">Sarah Ogan Gunning</a></h4><br>Born <strong>1910</strong> in Knox County</h3><br><a href="http://www.wikidata.org/entity/Q7422652" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_d46c3c0814e347f888710b9fa97a1079.setContent(html_5d0eddde84ba40eeb1e2177bc53e1f95);
+        
+
+        marker_2af525b80b924144a8b6f5c1de5944b3.bindPopup(popup_d46c3c0814e347f888710b9fa97a1079)
+        ;
+
+        
+    
+    
+            var marker_35dc0dc68fca4bb788284bcf2714bdf8 = L.marker(
+                [50.21, -5.48],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_5d85596c033d4396a1a494138e02911c = L.popup({"maxWidth": 2650});
+
+        
+            var html_19c93d2ee81f46719acdf20ace9b8e56 = $(`<div id="html_19c93d2ee81f46719acdf20ace9b8e56" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=George%20Lloyd" target="_blank">George Lloyd</a></h4><br>Born <strong>1913</strong> in St Ives</h3><br><a href="http://www.wikidata.org/entity/Q1507794" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_5d85596c033d4396a1a494138e02911c.setContent(html_19c93d2ee81f46719acdf20ace9b8e56);
+        
+
+        marker_35dc0dc68fca4bb788284bcf2714bdf8.bindPopup(popup_5d85596c033d4396a1a494138e02911c)
+        ;
+
+        
+    
+    
+            var marker_43e2d9435f1d46069e8b7928c0e81d6f = L.marker(
+                [-23.550394444444, -46.633947222222],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_289675de453c4afaaadba1b48e897e91 = L.popup({"maxWidth": 2650});
+
+        
+            var html_14a60a3f5d364d60bff9c8c30d454f52 = $(`<div id="html_14a60a3f5d364d60bff9c8c30d454f52" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Anibal%20Augusto%20Sardinha" target="_blank">Anibal Augusto Sardinha</a></h4><br>Born <strong>1915</strong> in São Paulo</h3><br><a href="http://www.wikidata.org/entity/Q1494414" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_289675de453c4afaaadba1b48e897e91.setContent(html_14a60a3f5d364d60bff9c8c30d454f52);
+        
+
+        marker_43e2d9435f1d46069e8b7928c0e81d6f.bindPopup(popup_289675de453c4afaaadba1b48e897e91)
+        ;
+
+        
+    
+    
+            var marker_2dd5c609a5f74e34af0a50a99e43d1cd = L.marker(
+                [41.244444444444, -75.878055555556],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_bd509118bc164788b72a1c56aae1889c = L.popup({"maxWidth": 2650});
+
+        
+            var html_501dd9db91994e149a932716db713f34 = $(`<div id="html_501dd9db91994e149a932716db713f34" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=William%20Hess" target="_blank">William Hess</a></h4><br>Born <strong>1915</strong> in Wilkes-Barre</h3><br><em>No Wikidata Item</em></div>`)[0];
+            popup_bd509118bc164788b72a1c56aae1889c.setContent(html_501dd9db91994e149a932716db713f34);
+        
+
+        marker_2dd5c609a5f74e34af0a50a99e43d1cd.bindPopup(popup_bd509118bc164788b72a1c56aae1889c)
+        ;
+
+        
+    
+    
+            var marker_22cf95b72f5841128ed138645591be0b = L.marker(
+                [43.2461, -78.1936],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_93bc1e6ae50b4f8e9fafba5cab3503ae = L.popup({"maxWidth": 2650});
+
+        
+            var html_baf3e2f7d6e74e22ade95ee6e510462a = $(`<div id="html_baf3e2f7d6e74e22ade95ee6e510462a" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=William%20Fitts%20Ryan" target="_blank">William Fitts Ryan</a></h4><br>Born <strong>1922</strong> in Albion</h3><br><a href="http://www.wikidata.org/entity/Q13219161" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_93bc1e6ae50b4f8e9fafba5cab3503ae.setContent(html_baf3e2f7d6e74e22ade95ee6e510462a);
+        
+
+        marker_22cf95b72f5841128ed138645591be0b.bindPopup(popup_93bc1e6ae50b4f8e9fafba5cab3503ae)
+        ;
+
+        
+    
+    
+            var marker_58281aa2f8f942698fceee830ad2de96 = L.marker(
+                [41.6675, -86.171388888889],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_006eee35a2954e7fb003fc60762d4cb1 = L.popup({"maxWidth": 2650});
+
+        
+            var html_2ce5126776cb4a13a7237be0f531af46 = $(`<div id="html_2ce5126776cb4a13a7237be0f531af46" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Pete%20Candoli" target="_blank">Pete Candoli</a></h4><br>Born <strong>1923</strong> in Mishawaka</h3><br><a href="http://www.wikidata.org/entity/Q301791" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_006eee35a2954e7fb003fc60762d4cb1.setContent(html_2ce5126776cb4a13a7237be0f531af46);
+        
+
+        marker_58281aa2f8f942698fceee830ad2de96.bindPopup(popup_006eee35a2954e7fb003fc60762d4cb1)
+        ;
+
+        
+    
+    
+            var marker_214621a5be18487bbb8ec5beac60709b = L.marker(
+                [45.7, 13.85],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_2f68044dd6a64d6ba89b4816bc51f7dd = L.popup({"maxWidth": 2650});
+
+        
+            var html_6564579bdc404024992e0411c1959990 = $(`<div id="html_6564579bdc404024992e0411c1959990" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Danilo%20Dolci" target="_blank">Danilo Dolci</a></h4><br>Born <strong>1924</strong> in Sežana</h3><br><a href="http://www.wikidata.org/entity/Q2725433" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_2f68044dd6a64d6ba89b4816bc51f7dd.setContent(html_6564579bdc404024992e0411c1959990);
+        
+
+        marker_214621a5be18487bbb8ec5beac60709b.bindPopup(popup_2f68044dd6a64d6ba89b4816bc51f7dd)
+        ;
+
+        
+    
+    
+            var marker_51333924453946ca82367ef6318f276a = L.marker(
+                [41.6675, -86.171388888889],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_55fff87d006c4bcd925c953bf31c9eee = L.popup({"maxWidth": 2650});
+
+        
+            var html_5f128116a5a94ca2bbf86e9d8d479537 = $(`<div id="html_5f128116a5a94ca2bbf86e9d8d479537" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=David%20Katz" target="_blank">David Katz</a></h4><br>Born <strong>1924</strong> in Mishawaka</h3><br><a href="http://www.wikidata.org/entity/Q5235870" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_55fff87d006c4bcd925c953bf31c9eee.setContent(html_5f128116a5a94ca2bbf86e9d8d479537);
+        
+
+        marker_51333924453946ca82367ef6318f276a.bindPopup(popup_55fff87d006c4bcd925c953bf31c9eee)
+        ;
+
+        
+    
+    
+            var marker_16ea6da032f143e6ac99c04e8ddfbd70 = L.marker(
+                [49.487777777778, 8.4661111111111],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_22bcdc9e8a3f455f9e12fae10d2b9755 = L.popup({"maxWidth": 2650});
+
+        
+            var html_1f4e112244a24697a133f4f9fa1595e0 = $(`<div id="html_1f4e112244a24697a133f4f9fa1595e0" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Giselher%20Klebe" target="_blank">Giselher Klebe</a></h4><br>Born <strong>1925</strong> in Mannheim</h3><br><a href="http://www.wikidata.org/entity/Q690846" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_22bcdc9e8a3f455f9e12fae10d2b9755.setContent(html_1f4e112244a24697a133f4f9fa1595e0);
+        
+
+        marker_16ea6da032f143e6ac99c04e8ddfbd70.bindPopup(popup_22bcdc9e8a3f455f9e12fae10d2b9755)
+        ;
+
+        
+    
+    
+            var marker_b0f2eb74928145d09172cd51c6c2ba09 = L.marker(
+                [40.692777777778, -73.990277777778],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_1b9534c9b82f4689bed58c58dcea7564 = L.popup({"maxWidth": 2650});
+
+        
+            var html_3cf9e40e0dab4f8d87f3cdbe5a838031 = $(`<div id="html_3cf9e40e0dab4f8d87f3cdbe5a838031" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Mel%20Brooks" target="_blank">Mel Brooks</a></h4><br>Born <strong>1926</strong> in Brooklyn</h3><br><a href="http://www.wikidata.org/entity/Q104266" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_1b9534c9b82f4689bed58c58dcea7564.setContent(html_3cf9e40e0dab4f8d87f3cdbe5a838031);
+        
+
+        marker_b0f2eb74928145d09172cd51c6c2ba09.bindPopup(popup_1b9534c9b82f4689bed58c58dcea7564)
+        ;
+
+        
+    
+    
+            var marker_2ad19ee8aa054e29a0e8fce64f1bb206 = L.marker(
+                [43.670277777778, -79.386666666667],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_82514ca099f541b1b95a99236ad10d56 = L.popup({"maxWidth": 2650});
+
+        
+            var html_874966dea6e740e88c4bc451971d85de = $(`<div id="html_874966dea6e740e88c4bc451971d85de" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Warren%20Mould" target="_blank">Warren Mould</a></h4><br>Born <strong>1933</strong> in Toronto</h3><br><em>No Wikidata Item</em></div>`)[0];
+            popup_82514ca099f541b1b95a99236ad10d56.setContent(html_874966dea6e740e88c4bc451971d85de);
+        
+
+        marker_2ad19ee8aa054e29a0e8fce64f1bb206.bindPopup(popup_82514ca099f541b1b95a99236ad10d56)
+        ;
+
+        
+    
+    
+            var marker_a3d7503c281e4c7a85b5bffdca43542a = L.marker(
+                [41.881944444444, -87.627777777778],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_d182da0881b54a85912b9c1e481634ff = L.popup({"maxWidth": 2650});
+
+        
+            var html_91864b4f4bd049e98e83d1dafe77fbce = $(`<div id="html_91864b4f4bd049e98e83d1dafe77fbce" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Charles%20Walker" target="_blank">Charles Walker</a></h4><br>Born <strong>1935</strong> in Chicago</h3><br><em>No Wikidata Item</em></div>`)[0];
+            popup_d182da0881b54a85912b9c1e481634ff.setContent(html_91864b4f4bd049e98e83d1dafe77fbce);
+        
+
+        marker_a3d7503c281e4c7a85b5bffdca43542a.bindPopup(popup_d182da0881b54a85912b9c1e481634ff)
+        ;
+
+        
+    
+    
+            var marker_d9c87dd917dc40b4b1207a696d2090e2 = L.marker(
+                [-34.599722222222, -58.381944444444],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_0a5dd11e07b142a3b897f159b112dab7 = L.popup({"maxWidth": 2650});
+
+        
+            var html_7c207f9f6adc4123bf015c1825e9b560 = $(`<div id="html_7c207f9f6adc4123bf015c1825e9b560" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Juan%20Cedr%C3%B3n" target="_blank">Juan Cedrón</a></h4><br>Born <strong>1939</strong> in Buenos Aires</h3><br><a href="http://www.wikidata.org/entity/Q16494639" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_0a5dd11e07b142a3b897f159b112dab7.setContent(html_7c207f9f6adc4123bf015c1825e9b560);
+        
+
+        marker_d9c87dd917dc40b4b1207a696d2090e2.bindPopup(popup_0a5dd11e07b142a3b897f159b112dab7)
+        ;
+
+        
+    
+    
+            var marker_6865ef38c7b340feade6c5cae7318d81 = L.marker(
+                [29.425, -98.493888888889],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_ab08611cebc342a98b8dfa57431b36b9 = L.popup({"maxWidth": 2650});
+
+        
+            var html_0c1ae2a0b04249bdb36bd53aa96e880f = $(`<div id="html_0c1ae2a0b04249bdb36bd53aa96e880f" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Robert%20Xavier%20Rodr%C3%ADguez" target="_blank">Robert Xavier Rodríguez</a></h4><br>Born <strong>1946</strong> in San Antonio</h3><br><a href="http://www.wikidata.org/entity/Q2355601" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_ab08611cebc342a98b8dfa57431b36b9.setContent(html_0c1ae2a0b04249bdb36bd53aa96e880f);
+        
+
+        marker_6865ef38c7b340feade6c5cae7318d81.bindPopup(popup_ab08611cebc342a98b8dfa57431b36b9)
+        ;
+
+        
+    
+    
+            var marker_d53dde5ce77f4e59b5d9fc69055612c5 = L.marker(
+                [42.358333333333, -71.0625],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_0f6f380204714888b328c970605c172e = L.popup({"maxWidth": 2650});
+
+        
+            var html_2a059513b9a94a3f90424cc2e72f0006 = $(`<div id="html_2a059513b9a94a3f90424cc2e72f0006" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=John%20Lee" target="_blank">John Lee</a></h4><br>Born <strong>1952</strong> in Boston</h3><br><a href="http://www.wikidata.org/entity/Q16988198" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_0f6f380204714888b328c970605c172e.setContent(html_2a059513b9a94a3f90424cc2e72f0006);
+        
+
+        marker_d53dde5ce77f4e59b5d9fc69055612c5.bindPopup(popup_0f6f380204714888b328c970605c172e)
+        ;
+
+        
+    
+    
+            var marker_ad182558c9f64eaca28b6f19dbb4eaa6 = L.marker(
+                [41.6831, -85.9689],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_381b1ad9871a410eb1aeae66aac0e991 = L.popup({"maxWidth": 2650});
+
+        
+            var html_3077ae4135834bf2bfbd43420aaca035 = $(`<div id="html_3077ae4135834bf2bfbd43420aaca035" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Thomas%20Hampson" target="_blank">Thomas Hampson</a></h4><br>Born <strong>1955</strong> in Elkhart</h3><br><a href="http://www.wikidata.org/entity/Q539708" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_381b1ad9871a410eb1aeae66aac0e991.setContent(html_3077ae4135834bf2bfbd43420aaca035);
+        
+
+        marker_ad182558c9f64eaca28b6f19dbb4eaa6.bindPopup(popup_381b1ad9871a410eb1aeae66aac0e991)
+        ;
+
+        
+    
+    
+            var marker_51a25233399e484c83f5a36a9aec4895 = L.marker(
+                [40.67, -73.94],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_ce100aa1ad424bef894f4f4b29e0c854 = L.popup({"maxWidth": 2650});
+
+        
+            var html_bc71c774eada4f8db814eb27843e06e8 = $(`<div id="html_bc71c774eada4f8db814eb27843e06e8" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=Michael%20Cherry" target="_blank">Michael Cherry</a></h4><br>Born <strong>1955</strong> in New York City</h3><br><em>No Wikidata Item</em></div>`)[0];
+            popup_ce100aa1ad424bef894f4f4b29e0c854.setContent(html_bc71c774eada4f8db814eb27843e06e8);
+        
+
+        marker_51a25233399e484c83f5a36a9aec4895.bindPopup(popup_ce100aa1ad424bef894f4f4b29e0c854)
+        ;
+
+        
+    
+    
+            var marker_d96832a0d44c4eff97ddb884ff3f0fb2 = L.marker(
+                [40.67, -73.94],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_2a25aca45fee4c198d323c28df261f74 = L.popup({"maxWidth": 2650});
+
+        
+            var html_574250abfc5440f189496c04fc08fc00 = $(`<div id="html_574250abfc5440f189496c04fc08fc00" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Brian%20Neal" target="_blank">Brian Neal</a></h4><br>Born <strong>1967</strong> in New York City</h3><br><em>No Wikidata Item</em></div>`)[0];
+            popup_2a25aca45fee4c198d323c28df261f74.setContent(html_574250abfc5440f189496c04fc08fc00);
+        
+
+        marker_d96832a0d44c4eff97ddb884ff3f0fb2.bindPopup(popup_2a25aca45fee4c198d323c28df261f74)
+        ;
+
+        
+    
+    
+            var marker_5856a47a80a44b89a5461c0526ca5b0e = L.marker(
+                [47.5, 16.516666666667],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_a0b5f2a75a8848e1bc029819ca0d757f = L.popup({"maxWidth": 2650});
+
+        
+            var html_cbf33459bb1c47f59dc2ea17d67ec3e6 = $(`<div id="html_cbf33459bb1c47f59dc2ea17d67ec3e6" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Elisabeth%20Kulman" target="_blank">Elisabeth Kulman</a></h4><br>Born <strong>1973</strong> in Oberpullendorf</h3><br><a href="http://www.wikidata.org/entity/Q1330075" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_a0b5f2a75a8848e1bc029819ca0d757f.setContent(html_cbf33459bb1c47f59dc2ea17d67ec3e6);
+        
+
+        marker_5856a47a80a44b89a5461c0526ca5b0e.bindPopup(popup_a0b5f2a75a8848e1bc029819ca0d757f)
+        ;
+
+        
+    
+    
+            var marker_271ebf6ad1394c23a3c89a64b7e5a7d8 = L.marker(
+                [46.616666666667, 14.3],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_0ad9c92e886f436485e19f7e529a81a8 = L.popup({"maxWidth": 2650});
+
+        
+            var html_1f3a7de66ca14e9d8bfe02b60fff3a97 = $(`<div id="html_1f3a7de66ca14e9d8bfe02b60fff3a97" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Christopher%20Hinterhuber" target="_blank">Christopher Hinterhuber</a></h4><br>Born <strong>1973</strong> in Klagenfurt</h3><br><a href="http://www.wikidata.org/entity/Q1086741" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_0ad9c92e886f436485e19f7e529a81a8.setContent(html_1f3a7de66ca14e9d8bfe02b60fff3a97);
+        
+
+        marker_271ebf6ad1394c23a3c89a64b7e5a7d8.bindPopup(popup_0ad9c92e886f436485e19f7e529a81a8)
+        ;
+
+        
+    
+    
+            var marker_42d02e092c744fc1b6f2e5c7b5bbd006 = L.marker(
+                [45.95, -66.666666666667],
+                {}
+            ).addTo(marker_cluster_51fd0d59e9024824a77cac74636f1755);
+        
+    
+        var popup_a70efa0262bd43a0a53e0e75e80c4a79 = L.popup({"maxWidth": 2650});
+
+        
+            var html_47a592913f87474ba5f4d59b5116a91c = $(`<div id="html_47a592913f87474ba5f4d59b5116a91c" style="width: 100.0%; height: 100.0%;"><h4><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Measha%20Brueggergosman" target="_blank">Measha Brueggergosman</a></h4><br>Born <strong>1977</strong> in Fredericton</h3><br><a href="http://www.wikidata.org/entity/Q455563" target="_blank">Wikidata Item</a></div>`)[0];
+            popup_a70efa0262bd43a0a53e0e75e80c4a79.setContent(html_47a592913f87474ba5f4d59b5116a91c);
+        
+
+        marker_42d02e092c744fc1b6f2e5c7b5bbd006.bindPopup(popup_a70efa0262bd43a0a53e0e75e80c4a79)
+        ;
+
+        
+    
+</script>

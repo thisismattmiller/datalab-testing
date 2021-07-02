@@ -1,0 +1,107 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="container data-display">
+
+
+  <div class="twelve columns">
+  <h3>Work: {{ data.rdfs_label_string }}</h3>
+  </div>
+
+  <table class="u-full-width prop-table table">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if data.dcterms_creator %}
+        <tr>
+          <td>dcterms:creator</td>
+          <td>
+          	<ul>
+  				{% for values in data.dcterms_creator %}
+  				   <li><a href="{{values.0}}">{{values.1}}</a></li>
+  				{% endfor %}
+  			     </ul>
+		      </td>
+        </tr>
+      {% endif %}
+      {% if data.dcterms_created %}
+        <tr>
+          <td>dcterms:created</td>
+          <td>
+          	<ul>
+      				{% for values in data.dcterms_created %}
+      				   <li>{{values}}</li>
+      				{% endfor %}
+      			</ul>
+  		    </td>
+        </tr>
+      {% endif %}
+      <tr>
+        <td>rdf:type</td>
+        <td>
+        	<ul>
+				{% for values in data.rdf_type %}
+				   <li><a href="{{values}}">{{values}}</a></li>
+				{% endfor %}
+			</ul>
+		</td>
+      </tr>
+      <tr>
+        <td>rdfs:label</td>
+        <td>
+        	<ul>
+				{% for values in data.rdfs_label %}
+				   <li>{{values}}</li>
+				{% endfor %}
+			</ul>
+		</td>
+      </tr>
+      {% if data.skos_exact_match %}
+      <tr>
+        <td>skos:exactMatch</td>
+        <td>
+        	<ul>
+				{% for values in data.skos_exact_match %}
+				   <li><a href="{{values}}">{{values}}</a></li>
+				{% endfor %}
+			</ul>
+    		</td>
+     </tr>
+     {% endif %}
+
+      <tr>
+        <td>Performance</br>Events</td>
+        <td>
+        	<ul>
+				{% for values in data.events %}
+				   <li><a href="{{values.0}}">{{values.1}}</a> ({{values.2}})</li>
+				{% endfor %}
+			</ul>
+		</td>
+      </tr>
+      {% if data.unmapped %}
+	      	{% for values in data.unmapped %}
+	      	<tr>
+		        <td>{{values.0}}</td>
+		        <td>
+		        	<ul>
+						 <li><a href="{{values.1}}">{{values.1}}</a></li>
+					</ul>
+				</td>
+			</tr>
+			{% endfor %}
+      {% endif %}
+
+
+    </tbody>
+  </table>
+<span>View Data As: <a rel="nofollow" href="./jsonld">JSON-LD</a> | <a rel="nofollow" href="./nt">N-Triples</a> | <a rel="nofollow" href="./turtle">Turtle</a> | <a rel="nofollow" href="./n3">N3</a> | <a rel="nofollow" href="./xml">XML</a></span>
+</div>
+
+
+
+{% endblock %}

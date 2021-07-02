@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">Whose Birthday is Today?</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0001-c</h4>
+      <p class="card-text lead">See performers and composers from Carnegie Hall’s performance history who were born on this day. Click on each name to view information on that person from our online Performance History Search, and view matching items in Wikidata.</p>
+    </div>
+  </div>
+  <!-- Interal page link to lab report goes here -->
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid pt-2">
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <div class="container-fluid">
+    <!-- data returned from query view goes here -->
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Birth Year</th>
+          <th scope="col">Name with PHS Link</th>
+          <th scope="col">Birth Place</th>
+          <th scope="col">Matching Wikidata Item</th>
+        </tr>
+      </thead>
+    {% for key, value in data.items %}
+      <tr>
+      {% if value.properties.wikidata != "" %}
+        <td>{{value.properties.date}}</td>
+        <td><a href="{{value.properties.url}}" target="_blank">{{value.properties.name}}</a></td>
+        <td>born in <a href="{{value.properties.geobirth}}" target="_blank">{{value.properties.city}}</a></td>
+        <td><a href="{{value.properties.wikidata}}" target="_blank"> Wikidata Item</a></td>
+      </tr>
+      {% else %}
+      <tr>
+        <td>{{value.properties.date}}</td>
+        <td><a href="{{value.properties.url}}" target="_blank">{{value.properties.name}}</a></td>
+        <td>born in <a href="{{value.properties.geobirth}}" target="_blank">{{value.properties.city}}</a></td>
+        <td><em> No Wikidata Item</em></td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+  <hr>
+  <!-- Lab report goes in this section -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div><br>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3" id="lab_report-title">
+      <h2>EXPERIMENT LABEL/TITLE</h2>
+      <p>List: Whose Birthday is Today?</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3" id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>See which composers and performers from Carnegie Hall’s performance history were born on this day, with their birth year, birthplace, and a link to their corresponding Wikidata item.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <p>The scope is limited to those people for whom we have birthdate and birthplace information.</p>
+        <div id="lab_report-methods">
+          <h2>METHODS</h2>
+          <p>We created a SPARQL query using <a href="http://data.carnegiehall.org/" target="_blank">data.carnegiehall.org</a>, which finds people from Carnegie Hall's performance history (e.g. performers, and/or creators like composers, arrangers, lyricists, etc.) born on today's date. Since birthdates have been stored as <a href="https://www.w3.org/TR/NOTE-datetime" target="_blank">ISO-8601</a> dates assigned datatypes like <code>xsd:date</code> (YYYY-MM-DD), <code>xsd:gYearMonth</code> (YYYY-MM), or <code>xsd:gYear</code> (YYYY), we can use SPARQL's <code>FILTER</code> to find only those people born on today's month and day. Birthplaces are identified using <a href="https://www.geonames.org/" target="_blank">GeoNames</a> URIs (when the birth city is not known, birth country will be used; people with no birthplace recorded will not appear in the query). The query will also return the Wikidata item ID for anyone whose Carnegie Hall ID has been aligned with Wikidata using the <code>skos:exactMatch</code> property.</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "<http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <pre><code>
+              PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+              PREFIX dbo: &lt;http://dbpedia.org/ontology/#&gt;
+              PREFIX schema: &lt;http://schema.org/##&gt;
+              PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/##&gt;
+              PREFIX geo-pos: &lt;http://www.w3.org/2003/01/geo/wgs84_pos##&gt;
+              PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core##&gt;
+              SELECT ?personName ?birthPlace ?birthPlaceLabel ?lat ?long ?opasID ?wikidataLink (YEAR(?date) as ?year)
+              (IRI(CONCAT(&quot;https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=&quot;,
+                            (STR(ENCODE_FOR_URI(?personName))))) AS ?perfLink)
+              (IRI(CONCAT(&quot;https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&cmp=&quot;,
+                            (STR(ENCODE_FOR_URI(?personName))))) AS ?compLink)
+              WHERE
+              {
+                  BIND(MONTH(NOW()) AS ?nowMonth)
+                  BIND(DAY(NOW()) AS ?nowDay)
+
+                  ?personID schema:birthDate ?date ;
+                          foaf:name ?personName ;
+                          dbo:birthPlace ?birthPlace .
+                  ?birthPlace rdfs:label ?birthPlaceLabel ;
+                              geo-pos:lat ?lat ;
+                              geo-pos:long ?long .
+                  OPTIONAL { ?personID skos:exactMatch ?wikidataLink .
+                      filter contains(str(?wikidataLink), &quot;wikidata&quot;)}
+                  BIND(REPLACE(str(?personID), &quot;http://data.carnegiehall.org/names/&quot;, &quot;&quot;) as ?opasID)
+                  FILTER (MONTH(?date) = ?nowMonth && DAY(?date) = ?nowDay)
+
+              }
+              ORDER BY ?year
+              LIMIT 100
+            </code></pre>
+          </div>
+          <p>In order to provide an easily human-readable version of each person’s history at the hall, we also use SPARQL to create a link to <a href="https://www.carnegiehall.org/About/History/Performance-History-Search" target="_blank">Performance History Search</a>, an HTML presentation of essentially the same dataset that we published first in 2013 (and predates our experiments with LOD). (In the query, this is found right after the <code>SELECT</code> statement, where you'll see <code>(IRI(CONCAT(</code> etc.)</p>
+        </div>
+        <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>You might be asking why we need to formulate different versions of the PHS link. The HTML version launched in 2013, well prior to our release of the same data as RDF in 2017; although the source database is the same, the process that translates the data for display is a bit different and was developed separately. This creates a few challenges when attempting to create links to PHS search filters:
+            <ul>
+              <li>Our source database for CH’s performance history data, a proprietary SQL-based product designed for concert planning, stores performers and composers in separate tables. When the data is surfaced in the HTML Performance History Search (PHS), that separation between composers and performers remains. Query filters are constructed from a search index based on the name string of the composer or performer.</li>
+              <li>Our RDF version of the data solves this problem of (potential) dual IDs by creating a single ID for each named entity, with statements defining their role according to associations with creative works (as a composer, arranger, lyricist, etc.) and/or events (as a performer).</li>
+              <li>In order to construct the PHS link, a URL-safe version of the Wikidata item label (i.e. the name of the composer or performer, with URL-encoded characters replacing spaces and other reserved characters) must be concatenated with a base URL, e.g. <a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Juan%20Tizol" target="_blank"><code>https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&pf=Juan%20Tizol</code></a>.</li>
+            </ul>
+          </p>
+          <p><strong>further investigation</strong></p>
+          <p>Eventually our goal is to bring all online historical content &mdash; our performance history and digital collections &mdash; into a single, unified user experience using our LOD as the metadata "backbone". The Carnegie Hall Data Lab is a first step in that direction, where we can begin experimenting with user-friendly ways to surface our performance history data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}

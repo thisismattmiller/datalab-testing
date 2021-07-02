@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <div class="container-fluid p-3 my-3">
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'chdl-0001-c' %}">Whose Birthday is Today? (<em>list</em>)</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'chdl-0001-d' %}">Whose Birthday is Today? (<em>map</em>)</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'beethovenCount' %}">Beethoven Through the Years</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'firstVienneseSchool' %}">Comparison of Haydn, Mozart, and Beethoven</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'threeBs' %}">Comparison of the "Three Bs"</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'grammyWinners' %}">Grammy Award Winners at CH</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'genreChart' %}">Non-Classical Music Events at CH, by Genre</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'may5' %}">May 5, 1891 Across America</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'top25' %}">Top 25 Works at CH</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'leschetizky' %}">The Leschetizky Effect</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'yearForm' %}">This Day in CH History / Billboard Hot 100</a>
+    </div>
+    <div class="btn-group pt-2">
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'chdl-0011' %}">CH’s Rock Explosion of 1971-72</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

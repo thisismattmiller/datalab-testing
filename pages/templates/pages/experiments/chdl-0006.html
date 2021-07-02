@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+{% load wagtailcore_tags %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">Non-Classical Music Events at CH, by Genre</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0006</h4>
+      <p class="card-text lead">A pie chart showing the breakdown of non-classical music events at Carnegie Hall, listed by genre.</p>
+    </div>
+  </div>
+  <!-- Interal page link to lab report goes here -->
+  <!-- If experiment data/visualization covers a lot of page space, remove data-toggle="collapse" here and on id="lab_report" -->
+  <!-- Include return navigation to Experiments page -->
+  <div class="container-fluid" pt-2>
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <div class="container-fluid">
+    <!-- data returned from query view goes here -->
+    <div class="embed-responsive embed-responsive-16by9">
+    <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT5gc-Sbf98tt9n53vlMMEhc4RTKaC3fgq-QDF-5X3dm12CsGHBnkAavBflTxrkgWmR_Q53uU_2Jxgr/pubchart?oid=755660071&amp;format=interactive">
+    </iframe>
+    </div>
+  </div>
+  <!-- Lab report goes in this section -->
+  <!-- remove "collapse" from div class if lab report is below the fold -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3"id="lab_report-title">
+    <h2>EXPERIMENT LABEL/TITLE</h2>
+    <p>Non-Classical Music Events at CH, by Genre</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3"id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>Create a pie chart to show non-classical music genre labels and percentage counts, relative to the number of Carnegie Hall events that have a genre keyword assigned to them.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <div id="lab_report-methods">
+          <h2>METHODS</h2>
+          <p>We created a SPARQL query to count the number of performances for each genre. We outline the use of genre at Carnegie Hall <a href="https://carnegiehall.github.io/datalab/2020/04/10/musicalgenres.html" target="_blank">here</a>, which includes the background to this query:</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "&lt;http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <!-- Be careful, "<" and ">" may need to be escaped with "&lt;" and "&gt;" -->
+            <!-- Quotes may also need to be escaped with "&quot;" -->
+            <pre><code>
+            PREFIX event: &lt;http://purl.org/NET/c4dm/event.owl#&gt;
+            PREFIX mo: &lt;http://purl.org/ontology/mo/&gt;
+            PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+            PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+            SELECT ?genreLabel (COUNT (DISTINCT?event) AS ?numberOfEvents)
+            WHERE {
+              ?event rdf:type event:Event ;
+                     mo:genre ?genre .
+              ?genre rdfs:label ?genreLabel .
+            }
+            GROUP BY ?genreLabel
+            ORDER BY ?genreLabel
+            </code></pre>
+          </div>
+          <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>While this genre chart serves as a nice visualization, it is an incomplete representation of musical genre at Carnegie Hall. Genre is not recorded on every non-classical music event, and our current set of genre vocabulary is not up-to-date or all-inclusive. We continue to face several genre challenges related to the limits of our database and to the inconsistencies of the overall genre discussion.</p>
+          <p><strong>further investigation</strong></p>
+          <p>We’re still wrapping our heads around our own internal discussion of genre and ask for feedback and/or responses to this chart and to any of the talking points in our blog post, <a href="{% slugurl 'musical-genres-use-questions-and-challenges' %}">"Musical Genres: Use, Questions, and Challenges"</a>. If you have done work similar to this or have also been tossing around musical genre questions in your mind, <a href="{% url 'contact' %}">contact</a> us or tweet using #CHDataLab.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}

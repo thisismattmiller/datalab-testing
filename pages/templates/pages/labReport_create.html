@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+  {% block container %}
+  <div class="container">
+    <div class="card bg-info">
+        <div class="card-header">
+            <h5 class="card-title">Create a New Lab Report</h5>
+        </div>
+        <div class="container">
+          <div class="card-deck">
+            <div class="card-body bg-light text-dark">
+                <form method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-success">Create Lab Report</button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  {% endblock %}
+{% endblock %}

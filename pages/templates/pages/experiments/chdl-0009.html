@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">Top 25 Works at CH</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0009</h4>
+      <p class="lead text-left">Ever wonder what the most popular works are at Carnegie Hall?</p>
+      <p class="card-text lead">Click a work title to see it's CH performance history. Click a composer's name to see their Wikidata item.</p>
+    </div>
+  </div>
+  <!-- Interal page link to lab report goes here -->
+  <!-- If experiment data/visualization covers a lot of page space, remove data-toggle="collapse" here and on id="lab_report" -->
+  <!-- Include return navigation to Experiments page -->
+  <div class="container-fluid" pt-2>
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Composer</th>
+        <th scope="col">Work Title</th>
+        <th scope="col">Number of Performances</th>
+      </tr>
+    </thead>
+    <tbody><tr>
+      <td align="center">1.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q563098" target="_blank">John Stafford Smith</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=The%20Star%20Spangled%20Banner" target="_blank">The Star Spangled Banner</a><a></a></td>
+      <td align="center">680</td>
+    </tr>
+    <tr>
+      <td align="center">2.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1268" target="_blank">Frederic Chopin</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Ballade%20No.%201%20in%20G%20Minor,%20Op.%2023" target="_blank">Ballade No. 1 in G Minor, Op. 23</a><a></a></td>
+      <td align="center">392</td>
+    </tr>
+    <tr>
+      <td align="center">3.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q7302" target="_blank">George Frideric Handel</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Messiah" target="_blank">Messiah</a><a></a></td>
+      <td align="center">379</td>
+    </tr>
+    <tr>
+      <td align="center">4.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1511" target="_blank">Richard Wagner</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Die%20Meistersinger%20von%20N%C3%BCrnberg%3A%20Act%20I.%20Prelude" target="_blank">Die Meistersinger von Nürnberg: Act I. Prelude</a><a></a></td>
+      <td align="center">357</td>
+    </tr>
+    <tr>
+      <td align="center">5.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q7294" target="_blank">Johannes Brahms</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Symphony%20No.%201%20in%20C%20Minor,%20Op.%2068" target="_blank">Symphony No. 1 in C Minor, Op. 68</a><a></a></td>
+      <td align="center">355</td>
+    </tr>
+    <tr>
+      <td align="center">6.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q255" target="_blank">Ludwig van Beethoven</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Symphony%20No.%205%20in%20C%20Minor,%20Op.%2067" target="_blank">Symphony No. 5 in C Minor, Op. 67</a><a></a></td>
+      <td align="center">326</td>
+    </tr>
+    <tr>
+      <td align="center">7.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1268" target="_blank">Frederic Chopin</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Polonaise%20in%20A-flat%20Major,%20Op.%2053" target="_blank">Polonaise in A-flat Major, Op. 53</a><a></a></td>
+      <td align="center">310</td>
+    </tr>
+    <tr>
+      <td align="center">8.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q255" target="_blank">Ludwig van Beethoven</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Symphony%20No.%207%20in%20A%20Major,%20Op.%2092" target="_blank">Symphony No. 7 in A Major, Op. 92</a><a></a></td>
+      <td align="center">300</td>
+    </tr>
+    <tr>
+      <td align="center">9.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q255" target="_blank">Ludwig van Beethoven</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Piano%20Sonata%20No.%2023%20in%20F%20Minor,%20Op.%2057,%20%22Appassionata%22" target="_blank">Piano Sonata No. 23 in F Minor, Op. 57, "Appassionata"</a><a></a></td>
+      <td align="center">294</td>
+    </tr>
+    <tr>
+      <td align="center">10.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1268" target="_blank">Frederic Chopin</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Ballade%20No.%204%20in%20F%20Minor,%20Op.%2052" target="_blank">Ballade No. 4 in F Minor, Op. 52</a><a></a></td>
+      <td align="center">292</td>
+    </tr>
+    <tr>
+      <td align="center">11.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1268" target="_blank">Frederic Chopin</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Scherzo%20No.%202%20in%20B-flat%20Minor,%20Op.%2031" target="_blank">Scherzo No. 2 in B-flat Minor, Op. 31</a><a></a></td>
+      <td align="center">292</td>
+    </tr>
+    <tr>
+      <td align="center">12.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q7294" target="_blank">Johannes Brahms</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Symphony%20No.%202%20in%20D%20Major,%20Op.%2073" target="_blank">Symphony No. 2 in D Major, Op. 73</a><a></a></td>
+      <td align="center">291</td>
+    </tr>
+    <tr>
+      <td align="center">13.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q7294" target="_blank">Johannes Brahms</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Symphony%20No.%204%20in%20E%20Minor,%20Op.%2098" target="_blank">Symphony No. 4 in E Minor, Op. 98</a><a></a></td>
+      <td align="center">288</td>
+    </tr>
+    <tr>
+      <td align="center">14.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q255" target="_blank">Ludwig van Beethoven</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Symphony%20No.%203%20in%20E-flat%20Major,%20Op.%2055,%20%22Eroica%22" target="_blank">Symphony No. 3 in E-flat Major, Op. 55, "Eroica"</a><a></a></td>
+      <td align="center">283</td>
+    </tr>
+    <tr>
+      <td align="center">15.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q255" target="_blank">Ludwig van Beethoven</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Leonore%20Overture%20No.%203,%20Op.%2072b" target="_blank">Leonore Overture No. 3, Op. 72b</a><a></a></td>
+      <td align="center">282</td>
+    </tr>
+    <tr>
+      <td align="center">16.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q46096" target="_blank">Felix Mendelssohn</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Violin%20Concerto%20in%20E%20Minor,%20Op.%2064" target="_blank">Violin Concerto in E Minor, Op. 64</a><a></a></td>
+      <td align="center">281</td>
+    </tr>
+    <tr>
+      <td align="center">17.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1268" target="_blank">Frederic Chopin</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Ballade%20No.%203%20in%20A-flat%20Major,%20Op.%2047" target="_blank">Ballade No. 3 in A-flat Major, Op. 47</a><a></a></td>
+      <td align="center">281</td>
+    </tr>
+    <tr>
+      <td align="center">18.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1511" target="_blank">Richard Wagner</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Tannh%C3%A4user%3A%20Overture" target="_blank">Tannhäuser: Overture</a><a></a></td>
+      <td align="center">280</td>
+    </tr>
+    <tr>
+      <td align="center">19.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1268" target="_blank">Frederic Chopin</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Piano%20Sonata%20in%20B%20Minor,%20Op.%2058" target="_blank">Piano Sonata in B Minor, Op. 58</a><a></a></td>
+      <td align="center">270</td>
+    </tr>
+    <tr>
+      <td align="center">20.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1268" target="_blank">Frederic Chopin</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Barcarolle%20in%20F-sharp%20Major,%20Op.%2060" target="_blank">Barcarolle in F-sharp Major, Op. 60</a><a></a></td>
+      <td align="center">268</td>
+    </tr>
+    <tr>
+      <td align="center">21.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q132682" target="_blank">Modest Mussorgsky</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Pictures%20at%20an%20Exhibition" target="_blank">Pictures at an Exhibition</a><a></a></td>
+      <td align="center">266</td>
+    </tr>
+    <tr>
+      <td align="center">22.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q7315" target="_blank">Pyotr Ilyich Tchaikovsky</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Symphony%20No.%205%20in%20E%20Minor,%20Op.%2064" target="_blank">Symphony No. 5 in E Minor, Op. 64</a><a></a></td>
+      <td align="center">261</td>
+    </tr>
+    <tr>
+      <td align="center">23.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1268" target="_blank">Frederic Chopin</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Scherzo%20No.%203%20in%20C-sharp%20Minor,%20Op.%2039" target="_blank">Scherzo No. 3 in C-sharp Minor, Op. 39</a><a></a></td>
+      <td align="center">256</td>
+    </tr>
+    <tr>
+      <td align="center">24.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q1511" target="_blank">Richard Wagner</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Tristan%20und%20Isolde%3A%20Prelude%20and%20Liebestod" target="_blank">Tristan und Isolde: Prelude and Liebestod</a><a></a></td>
+      <td align="center">253</td>
+    </tr>
+    <tr>
+      <td align="center">25.</td>
+      <td align="left"><a href="http://www.wikidata.org/entity/Q7294" target="_blank">Johannes Brahms</a></td>
+      <td align="left"><a href="https://www.carnegiehall.org/About/History/Performance-History-Search?q=&amp;dex=prod_PHS&amp;w=Violin%20Concerto%20in%20D%20Major,%20Op.%2077" target="_blank">Violin Concerto in D Major, Op. 77</a><a></a></td>
+      <td align="center">252</td>
+    </tr>
+  </tbody></table>
+  <div class="container-fluid">
+    <!-- data returned from query view goes here -->
+  </div>
+  <!-- Lab report goes in this section -->
+  <!-- remove "collapse" from div class if lab report is below the fold -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3"id="lab_report-title">
+    <h2>EXPERIMENT LABEL/TITLE</h2>
+    <p>Top 25 Works at CH</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3"id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>Create a query to show the 25 most often performed works at Carnegie Hall, and create a user-friendly display.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <div id="lab_report-methods">
+          <h2>METHODS</h2>
+          <p>[We created a SPARQL query to return the composer name (plus their Wikidata Item ID), work title, and performance count of each work. By asking the query engine to sort the results in descending order and limiting the result set to the first 25 pattern matches, we can show the top 25 most often performed works:</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "<http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <!-- Be careful, "<" and ">" may need to be escaped with "&lt;" and "&gt;" -->
+            <!-- Quotes may also need to be escaped with "&quot;" -->
+            <pre><code>
+              PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;
+              PREFIX event: &lt;http://purl.org/NET/c4dm/event.owl#&gt;
+              PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+              PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+              PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#&gt;
+              SELECT DISTINCT ?composerName ?wikidataLink ?workTitle (COUNT(DISTINCT ?workPerf) AS ?numberOfPerformances)
+              WHERE {
+                ?work dcterms:creator ?composer ;
+                rdfs:label ?workTitle .
+                ?composer foaf:name ?composerName .
+                ?event event:product ?workPerf .
+                ?workPerf event:product ?work .
+                MINUS { ?composer foaf:name "Anonymous" . }
+                OPTIONAL { ?composer skos:exactMatch ?wikidataLink .
+                  filter contains(str(?wikidataLink), "wikidata")}
+                }
+                GROUP BY ?composerName ?workTitle ?wikidataLink
+                ORDER BY DESC(?numberOfPerformances)
+                LIMIT 25
+            </code></pre>
+            <p>Note that for many earlier events, program listings were sometimes vague, or, since our archives weren't established until 1986, we may have incomplete information, or may be missing the information altogether. Because of this, our database has many event records where works had to be recorded with "Anonymous" as the composer and work titles like "Unknown selection". In order to filter out the relatively high number of such entries, we included a <code>MINUS</code> pattern:</p>
+            <pre><code>
+              MINUS { ?composer foaf:name "Anonymous" . }
+            </code></pre>
+            <p>In fairness, the "high" number of Anonymous/Unknown selection entries is relative only to the kinds of numbers we see with often-performed works. When viewed in the context of ~100,000 musical works performed across 50,000+ events over 130 years, 500 or so instances of an unknown work is actually not very high, especially considering how often we aren't in control of the quality of event information to which we have access.</p>
+          </div>
+        </div>
+        <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>News flash: Chopin, Beethoven, and Brahms are popular 🙃! That Richard Wagner places so high might surprise modern audiences, since his works are not so often performed outside of the opera house anymore, but they were *very* popular during the first 50 years (1891 through the early 1940s) of the Hall's history. That Tchaikovsky doesn't appear until No. 22 *is* surprising, in some ways -- but in other ways this shows us how the popularity of some composers (Wagner, Tchaikovsky) ebbs and flows more than others (Chopin, Beethoven, Brahms) whose popularity seems consistently high througout the years.</p>
+          <p><strong>further investigation</strong></p>
+          <p>It would be interesting to dig more deeply into the details to examine the year-by-year waxing and waning of the popularity of certain composers and works.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}

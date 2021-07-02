@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">This Day at Carnegie Hall in {{data.year}}</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0007</h4>
+      <p class="card-text lead">Click on an event title to see the details on Carnegie Hall's Performance History Search, and view the <em>Billboard</em> Hot 100 from this week in history.</p>
+    </div>
+  </div>
+  <!-- Return navigation to Year Form -->
+  <div class="container-fluid pt-2">
+    <a class="btn btn-light" href="{% url 'yearForm' %}"><em>try a different year</em></a>
+  </div>
+  <div class="container-fluid pt-2">
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <div class="container-fluid">
+
+    {% if messages %}
+      {% for message in messages %}
+        <h4 class="{{ message.tags }}">{{ message }}</h4>
+      {% endfor %}
+    {% else %}
+      <h4>{{data.displayDate}}</h4>
+      <br>
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Venue</th>
+            <th scope="col">Event</th>
+            <th scope="col">Time</th>
+          </tr>
+        </thead>
+        {% for key, value in data.items %}
+        <tr>
+          {% if key != "hot100" and key != "year" and key != "displayDate" %}
+            <td scope="row">{{value.venueName}}
+            <td scope="row"><a href="{{value.eventURL}}" target="_blank">{{value.eventTitle}}</td>
+            <td scope="row">{{value.eventTime}}</td>
+        </tr>
+          {% endif %}
+        {% endfor %}
+      </table>
+        <h5><a class="btn btn-info btn-lg" href="{{data.hot100}}" target="_blank">View the Billboard Hot 100 for this week</a></h5>
+      <!-- Check new tabs for this day's events and the Billboard Hot 100 from that week. -->
+    {% endif %}
+  </div>
+
+  <!-- Lab report goes in this section -->
+  <!-- remove "collapse" from div class if lab report is below the fold -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div><br>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3" id="lab_report-title">
+    <h2>EXPERIMENT LABEL/TITLE</h2>
+    <p>This Day in Carnegie Hall History</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3"id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>See which events took place on this day for a given year in Carnegie Hall’s history, and view the Billboard Hot 100 chart for the corresponding week.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <p>We thought it would be fun to juxtapose Carnegie Hall events with the Billboard Hot 100 for that same week. While a majority of the events featured classical music, which won't align with the Hot 100, there have also been many rock and pop events which might. What can this tell us? Sometimes it's interesting to view historical data from seemingly unrelated domains; maybe it tells us nothing, or perhaps we learn something unexpected. <em>A note about the Billboard Hot 100: the charts are only available beginning with the week of August 4, 1958.</em></p>
+        <div id="lab_report-methods">
+          <h2>METHODS</h2>
+          <p>We created a drop-down date selector for the year, with values displaying the years between 1958 and 2019. When a user selects a year, the form passes the chosen year as a variable to the Django view that formulates and sends a SPARQL query to <a href="http://data.carnegiehall.org/" target="_blank">data.carnegiehall.org</a>. Using SPARQL's <code>FILTER</code> expression, the query finds Carnegie Hall events from that year and today's month and day. The view takes the data returned from the view and uses uses Python's <a href="https://dateutil.readthedocs.io/en/stable/parser.html" target="_blank"><code>dateutil.parser</code></a> to grab the event date (YYYY-MM-DD), which it passes to a Python function to find the nearest Saturday (the Hot 100 for each week is published on Saturday):</p>
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <pre><code>
+            def get_next_weekday(startdate):
+                  """
+                  @startdate: given date, in format 'YYYY-MM-DD'
+                  """
+                  d = datetime.strptime(startdate, '%Y-%m-%d')
+                  t = timedelta((12 - d.weekday()) % 7)
+                  # t = timedelta((7 + weekday - d.weekday()) % 7)
+                  return (d + t).strftime('%Y-%m-%d')
+            </code></pre>
+          </div>
+          <p>That date is then appended to a URL for the Hot 100, which is conveniently and easily formatted like this: <code>hot100_URL = ''.join(['https://www.billboard.com/charts/hot-100/', hot100_date])</code></p>
+          <p>Below is the SPARQL query for the Carnegie Hall events:</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "<http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <pre><code>
+            PREFIX dcterms: &lt;http://purl.org/dc/terms/>
+            PREFIX event: &lt;http://purl.org/NET/c4dm/event.owl#>
+            PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#>
+            SELECT ?event ?title ?date ?eventURL WHERE
+            {
+              BIND(YEAR(NOW()) AS ?nowYear)
+              BIND(MONTH(NOW()) AS ?nowMonth)
+              BIND(DAY(NOW()) AS ?nowDay)
+
+              ?event a event:Event ;
+                    dcterms:date ?date ;
+                    rdfs:label ?title .
+              FILTER (YEAR(?date) = ' + year + ' && MONTH(?date) = ?nowMonth && DAY(?date) = ?nowDay)
+              BIND(IRI(REPLACE(str(?event), 'http://data.carnegiehall.org/events/', 'https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&event=')) AS ?eventURL).
+            }
+            ORDER BY ?date
+            </code></pre>
+          </div>
+        </div>
+        <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>We can use SPARQL's date and time functions to help us manipulate pointers to external date-based content, allowing us to compare and juxtapose Carnegie Hall events with information on historical trends or events from the same time period.</p>
+          <p><strong>further investigation</strong></p>
+          <p>It would be interesting to try a similar experiment contrasting Carnegie Hall events with other historical datasets (weather?), contemporary events, or newspaper/magazine articles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}

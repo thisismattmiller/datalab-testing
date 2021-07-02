@@ -14,10 +14,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 env = os.environ.copy()
 
+SPARQL_ENDPOINT = env['SPARQL_ENDPOINT']
+print(SPARQL_ENDPOINT)
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+print(BASE_DIR)
+print(os.path.join(BASE_DIR, 'blog/templates/blog'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -26,8 +30,10 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
-    'home',
+    'pages',
     'search',
+    'blog',
+
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -40,9 +46,11 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
+    'wagtail.contrib.routable_page',
+    'wagtailmenus',
+    'wagtailcodeblock',
 
-    'modelcluster',
-    'taggit',
+
 
     'storages',
     'django.contrib.admin',
@@ -51,6 +59,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    # 'el_pagination',
+    'modelcluster',
+    'taggit',
+
+    'djgeojson',
+    'django_tables2',
+    'leaflet',
+
+    'crispy_forms'
+
+ 
+
 ]
 
 MIDDLEWARE = [
@@ -68,21 +90,17 @@ MIDDLEWARE = [
 
 
 
-
-AWS_STORAGE_BUCKET_NAME = env['AWS_STORAGE_BUCKET_NAME']
-AWS_ACCESS_KEY_ID = env['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = env['AWS_SECRET_ACCESS_KEY']
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-
 ROOT_URLCONF = 'ch_lod.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
-        ],
+        # 'DIRS': [
+        #     os.path.join(PROJECT_DIR, 'templates'),
+        # ],
+        'DIRS': [os.path.join(BASE_DIR, 'data/templates'),os.path.join(BASE_DIR, 'blog/templates/blog'), os.path.join(BASE_DIR, 'pages/templates/pages')],
+
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,12 +108,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request'
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'ch_lod.wsgi.application'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Database
@@ -154,6 +174,11 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
 
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (51.505, -0.09),
+    'DEFAULT_ZOOM': 10,
+}
+
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
 # JavaScript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/3.0/ref/contrib/staticfiles/#manifeststaticfilesstorage
@@ -169,6 +194,7 @@ MEDIA_URL = '/media/'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "ch_lod"
+SITE_ID = 1
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash

@@ -1,0 +1,51 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="container data-display">
+  <h3>Role Vocabulary</h3>
+
+  <div>{{data.vocab.desc}}</div>
+  <br>
+  <div><strong>Type:</strong> {{data.vocab.type}}</div>
+  <div><strong>Creator:</strong> {{data.vocab.creator}}</div>
+  <div><strong>Issued:</strong> {{data.vocab.issued}}</div>
+  <div><strong>Prefered Prefix:</strong> {{data.vocab.prefix}}</div>
+  <div><strong>Namespace:</strong> {{data.vocab.namespace}}</div>
+  <br>
+  <span>View Data As: <a rel="nofollow" href="./jsonld">JSON-LD</a> | <a rel="nofollow" href="./nt">N-Triples</a> | <a rel="nofollow" href="./turtle">Turtle</a> | <a rel="nofollow" href="./n3">N3</a> | <a rel="nofollow" href="./xml">XML</a></span>
+  <br><br><br>
+  
+
+  
+
+
+  <table class="u-full-width prop-table table">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for x in data.roles %}
+        <tr>
+          <td>{{x.label}}</td>
+          <td>
+            <ul>
+              <li>URI: <a href="{{x.uri}}">{{x.uri}}</a></li>
+              {% if x.seealso %}
+                <li>See Also: <a href="{{x.seealso}}">{{x.seealso}}</a></li>
+              {% endif %}
+            </ul>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+</div>
+
+
+
+{% endblock %}

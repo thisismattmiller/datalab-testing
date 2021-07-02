@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="container-fluid pt-3 my-3">
+    <h1 class="display-3 p-3 my-3 bg-warning text-white">Experiments</h1><hr>
+  </div>
+  <!-- Experiment title goes in this section -->
+  <div class="card text-white bg-dark mx-2 mb-3">
+    <div class="card-body">
+      <h1 class="card-title h1 text-center">Grammy Award Winners at CH</h1>
+      <h4 class="card-subtitle mb-2 text-muted text-center font-italic pb-4 px-2">chdl-0005</h4>
+      <p class="card-text lead">Artists from Carnegie Hall’s performance history that have won a Grammy Award.</p>
+    </div>
+  </div>
+  <!-- Interal page link to lab report goes here -->
+  <!-- If experiment data/visualization covers a lot of page space, remove data-toggle="collapse" here and on id="lab_report" -->
+  <!-- Include return navigation to Experiments page -->
+  <div class="container-fluid" pt-2>
+    <a class="btn btn-light" href="#lab_report" role="button"><em>read lab report</em></a>
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+  <hr>
+  <!-- Experiment data/visualization goes in this section -->
+  <div class="container-fluid">
+    <!-- data returned from query view goes here -->
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe src="https://query.wikidata.org/embed.html#%23defaultView%3AImageGrid%0ASELECT%20DISTINCT%20%3Fartist%20%3FartistLabel%20%3FartistImage%0A%28IRI%28CONCAT%28%22http%3A%2F%2Fdata.carnegiehall.org%2Fnames%2F%22%2C%28STR%28%3FchAgent_id%29%29%29%29%20AS%20%3FchLOD%29%0AWHERE%20%7B%0A%20%20%3Fartist%20%28wdt%3AP166%2Fwdt%3AP279%2a%29%20wd%3AQ41254%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP4104%20%3FchAgent_id%20.%0A%20%20OPTIONAL%20%7B%20%3Fartist%20wdt%3AP18%20%3FartistImage.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups" >
+      </iframe>
+    </div>
+  </div>
+  <!-- Lab report goes in this section -->
+  <!-- remove "collapse" from div class if lab report is below the fold -->
+  <div class="container-fluid pt-3" id="lab_report">
+    <div class="row">
+      <div class="col-lg-12" style="background-color:lavender;">
+        <h1 class="display-4">lab report</h1>
+      </div>
+    </div>
+    <!-- Lab report title goes here -->
+    <div class="container-fluid pt-3"id="lab_report-title">
+    <h2>EXPERIMENT LABEL/TITLE</h2>
+    <p>Grammy Award Winners at Carnegie Hall</p>
+    </div>
+    <!-- Lab report content goes here -->
+    <div class="container-fluid pt-3"id="lab_report-content">
+      <h2>TL;DR</h2>
+      <p>See which artists referenced in Carnegie Hall's performance history have won a Grammy Award and show their image.</p>
+      <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#verbose"><h2>- verbose</h2></button>
+      <div id="verbose" class="collapse"><br>
+        <p>Many artists who have performed at Carnegie Hall, or composers whose works have been performed here, have won Grammy Awards. We do not have details like this in our own dataset, but Wikidata does, and since a great many of the names in our data have been aligned with Wikidata items (using the Wikidata <a href="https://www.wikidata.org/wiki/Property:P4104" target="_blank">Carnegie Hall Agent ID property</a>), we can leverage these connections to find which artists have won Grammy Awards.</p>
+        <div id="lab_report-methods">
+          <h2>METHODS</h2>
+          <p>We created a SPARQL query to find artists (items) in Wikidata that have won a Grammy Award of any type:</p>
+          <!-- SPARQL query goes in this section -->
+          <!-- be sure to escape the "<http:" in prefixes with "&lt;http:" -->
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <!-- Be careful, "<" and ">" may need to be escaped with "&lt;" and "&gt;" -->
+            <!-- Quotes may also need to be escaped with "&quot;" -->
+            <pre><code>
+              #defaultView:ImageGrid
+              SELECT DISTINCT ?person ?personLabel ?personImage
+              (IRI(CONCAT("http://data.carnegiehall.org/names/",(STR(?chAgent_id)))) AS ?chLOD)
+              WHERE {
+                ?person (wdt:P166/wdt:P279*) wd:Q41254 ;
+                                 wdt:P4104 ?chAgent_id .
+                OPTIONAL { ?person wdt:P18 ?personImage. }
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+              }
+            </code></pre>
+          </div>
+          <p>The following line in the query looks for artists that have won an award that is identified as a subclass of a Grammy Award -- so it doesn't matter if the artist won Best New Artist, Best Classical Instrumental Solo, or even a Lifetime Achievement Award; this will find it:</p>
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <!-- Be careful, "<" and ">" may need to be escaped with "&lt;" and "&gt;" -->
+            <!-- Quotes may also need to be escaped with "&quot;" -->
+            <pre><code>?person (wdt:P166/wdt:P279*) wd:Q41254</code></pre>
+          </div>
+          <p>We added a link to each artist's internal Carnegie Hall identifier:</p>
+          <div  class="bg-light text-dark" id="lab_report-query">
+            <!-- Be careful, "<" and ">" may need to be escaped with "&lt;" and "&gt;" -->
+            <!-- Quotes may also need to be escaped with "&quot;" -->
+            <pre><code>(IRI(CONCAT("http://data.carnegiehall.org/names/",(STR(?chAgent_id)))) AS ?chLOD)</code></pre>
+          </div>
+            <p>Finally, Wikidata's Image Grid template (<code>defaultView:ImageGrid</code>) provides the display.</p>
+        </div>
+        <div id="lab_report-conclusions">
+          <h2>CONCLUSIONS</h2>
+          <p><strong>what we learned</strong></p>
+          <p>Wikidata’s out-of-the-box display templates are a wonderful way to easily create data visualizations, and do not require hosting your own dataset or creating your own visualization tools. They allow us to leverage the Carnegie Hall Agent ID property to surface interesting connections between CH’s named entities and external data/resources.</p>
+          <p><strong>further investigation</strong></p>
+          <p>We could add to the display which award/s each artist won, although for multiple award winners this would complicate both the query and the display. As we continue to align our internal Carnegie Hall IDs with Wikidata, more artists will appear in the grid.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Return navigation to Experiments page -->
+  <div class="container-fluid py-2">
+    <a class="btn btn-light" href="{% url 'experiments' %}"><em>return to experiments</em></a>
+  </div>
+</div>
+{% endblock %}
