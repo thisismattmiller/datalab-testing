@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'wagtailcodeblock',
 
+    # Comment this out if doing local development using sqlite
+    # make sure to put it back before deploying to prod
+    'wagtail.contrib.postgres_search',
 
 
     'storages',
@@ -87,6 +90,15 @@ MIDDLEWARE = [
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
+
+
+# Comment this out if doing local development using sqlite
+# make sure to put it back before deploying to prod
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+    },
+}
 
 
 

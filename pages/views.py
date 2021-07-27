@@ -11,6 +11,10 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.conf import settings
+from django.views.decorators.clickjacking import xframe_options_sameorigin
+
+from wagtail.core.models import Page
+from wagtail.search.models import Query
 
 
 from datetime import datetime, timedelta
@@ -81,18 +85,26 @@ def contact(request):
 
 def yearForm(request):
     submitted = False
+    print(request)
+    print('heeehhh')
+    print(request.method)
     if request.method == 'POST':
         form = YearForm(request.POST)
+
+
         if form.is_valid():
-            cd = form.cleaned_data
+            cd = form.cleaned_data   
+            print(cd)         
             # assert False
-            return HttpResponseRedirect('/chdl-0007?submitted=True')
+            return HttpResponseRedirect('/datalab/experiments/chdl-0007?submitted=True')
     else:
         form = YearForm()
         if 'submitted' in request.GET:
             submitted = True
 
     return render(request, 'pages/yearForm.html', {'form': form, 'submitted': submitted})
+
+
 # def button_chdl0007(request):
 #     return render(request, 'pages/yearForm.html', context)
 def beethovenCount(request):
@@ -114,10 +126,12 @@ def leschetizky(request):
 def button_chdl0011(request):
     return render(request, 'pages/experiments/chdl-0011.html')
 
+
+@xframe_options_sameorigin
 def chdl0001d(request):
     chBdays_GeoJSON = {}
 
-    sparql = SPARQLWrapper(settings.SPARQL_ENDPOINT)
+    sparql = SPARQLWrapper(env['SPARQL_ENDPOINT'])
     sparql.setCredentials(env['SPARQL_USERNAME'], env['SPARQL_PASSWORD'])
     sparql.setQuery("""
         #Whose birthday is today? (for map)
@@ -189,6 +203,12 @@ def chdl0001d(request):
         chBdays_GeoJSON[str(opasID)]["geometry"]["type"] = "Point"
         chBdays_GeoJSON[str(opasID)]["geometry"]["coordinates"] = coordinates
 
+
+    if 'json' in request.GET:
+
+        return JsonResponse(chBdays_GeoJSON, safe=False)
+
+
     data = chBdays_GeoJSON
     LONDON_COORDS = (51.5074, 0.1278)
     map = folium.Map(location=LONDON_COORDS, zoom_start=3)
@@ -222,10 +242,13 @@ def chdl0001d(request):
 
     ## Option 2
     return render(request, 'pages/experiments/chdl-0001-d.html')
+
+
+
 def chdl0001c(request):
     chBdays_GeoJSON = {}
 
-    sparql = SPARQLWrapper(settings.SPARQL_ENDPOINT)
+    sparql = SPARQLWrapper(env['SPARQL_ENDPOINT'])
     sparql.setCredentials(env['SPARQL_USERNAME'], env['SPARQL_PASSWORD'])
     sparql.setQuery("""
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -325,7 +348,7 @@ def chdl0007(request):
     query = query + '''BIND(IRI(REPLACE(str(?event), 'http://data.carnegiehall.org/events/', 'https://www.carnegiehall.org/About/History/Performance-History-Search?q=&dex=prod_PHS&event=')) AS ?eventURL).}'''
     query = query + 'ORDER BY ?date'
 
-    sparql = SPARQLWrapper(settings.SPARQL_ENDPOINT)
+    sparql = SPARQLWrapper(env['SPARQL_ENDPOINT'])
     sparql.setCredentials(env['SPARQL_USERNAME'], env['SPARQL_PASSWORD'])
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
@@ -392,7 +415,7 @@ def chdl0011(request):
     query = query + '''FILTER(?date >= xsd:dateTime("1971-09-01T00:00:00") && ?date <= xsd:dateTime("1972-09-01T00:00:00"))}'''
     query = query + 'ORDER BY ?date'
 
-    sparql = SPARQLWrapper(settings.SPARQL_ENDPOINT)
+    sparql = SPARQLWrapper(env['SPARQL_ENDPOINT'])
     sparql.setCredentials(env['SPARQL_USERNAME'], env['SPARQL_PASSWORD'])
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
@@ -419,3 +442,27 @@ def chdl0011(request):
         data[str(eventID)]['hot100'] = hot100_formattedLink
 
     return render(request, 'pages/experiments/chdl-0011.html', {'data':data})
+
+
+
+
+def search(request):
+    # Search
+    search_query = request.GET.get('query', None)
+    if search_query:
+        search_results = Page.objects.live().search(search_query)
+
+        # Log the query so Wagtail can suggest promoted results
+        Query.get(search_query).add_hit()
+    else:
+        search_results = Page.objects.none()
+
+    # Render template
+
+    if search_query == None:
+        search_query = ''
+        
+    return render(request, 'search_results.html', {
+        'search_query': search_query,
+        'search_results': search_results,
+    })

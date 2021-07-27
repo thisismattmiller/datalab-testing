@@ -7,6 +7,7 @@ from . import views
 
 urlpatterns = [
      path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon.ico'))),
+    path('datalab/search/', views.search, name='search-blog'),
     path('datalab/about/', views.about, name='about'),
     path('datalab/contact/', views.contact, name='contact'),
     path('datalab/experiments/chdl-0007/', views.chdl0007, name='chdl-0007'),

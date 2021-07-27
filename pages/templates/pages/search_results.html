@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="margin-top: 5em;">
+
+    <div style="margin-bottom: 2em;">
+        <form action="{% url 'search-blog' %}" method="get">
+            <input type="text" name="query" autofocus value="{{ search_query }}">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    {% if search_results %}
+        <ul>
+            {% for result in search_results %}
+                <li>
+                    <h4><a href="{{result.url}}">{{ result }}</a></h4>
+                    {% if result.search_description %}
+                        {{ result.search_description|safe }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif search_query %}
+        No results found
+    {% else %}
+        Please type something into the search box
+    {% endif %}
+
+
+</div>
+{% endblock %}
