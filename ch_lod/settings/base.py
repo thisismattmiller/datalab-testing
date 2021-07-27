@@ -130,6 +130,9 @@ WSGI_APPLICATION = 'ch_lod.wsgi.application'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
+# Database
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+DATABASES = {}
 
 
 
