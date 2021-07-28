@@ -15,13 +15,11 @@ import os
 env = os.environ.copy()
 
 SPARQL_ENDPOINT = env['SPARQL_ENDPOINT']
-print(SPARQL_ENDPOINT)
+
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-print(BASE_DIR)
-print(os.path.join(BASE_DIR, 'blog/templates/blog'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/

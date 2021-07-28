@@ -46,6 +46,7 @@ def route_sparql(request):
 		template = loader.get_template('sparql.html')
 		context = {
 		    'data': None,
+		    "sparql_page": "active",
 		}
 		return HttpResponse(template.render(context, request))
 
@@ -60,7 +61,7 @@ def route_sparql(request):
 		query = request.POST.get("query", "")
 
 
-		print(query)
+		
 
 		# add a limit to it if there is not one yet
 		re_match = limit_re.search(query)
@@ -82,7 +83,7 @@ def route_sparql(request):
 
 def route_homepage(request):
 		response = HttpResponse(content="",status=302)
-		response["Location"] = '/datalab'
+		response["Location"] = '/datalab'		
 		return response
 
 

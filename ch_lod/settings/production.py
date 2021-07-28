@@ -23,7 +23,7 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-DEBUG = True
+DEBUG = False
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

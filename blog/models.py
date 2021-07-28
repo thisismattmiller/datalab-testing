@@ -13,6 +13,8 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.search import index
+
 
 from .utils import MarkdownField, MarkdownPanel
 
@@ -38,7 +40,7 @@ class BlogPage(RoutablePageMixin, Page):
 
     @route(r'^$')
     def post_list(self, request, *args, **kwargs):
-        print("ROOT ROUTE")
+        
         self.posts = self.get_posts()
         return Page.serve(self, request, *args, **kwargs)
 
@@ -70,6 +72,10 @@ class PostPage(Page):
     ]
     settings_panels = Page.settings_panels + [
         FieldPanel('date'),
+    ]
+
+    search_fields = Page.search_fields + [ # Inherit search_fields from Page
+        index.SearchField('body'),
     ]
 
     @property

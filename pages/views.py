@@ -85,16 +85,12 @@ def contact(request):
 
 def yearForm(request):
     submitted = False
-    print(request)
-    print('heeehhh')
-    print(request.method)
     if request.method == 'POST':
         form = YearForm(request.POST)
 
 
         if form.is_valid():
-            cd = form.cleaned_data   
-            print(cd)         
+            cd = form.cleaned_data               
             # assert False
             return HttpResponseRedirect('/datalab/experiments/chdl-0007?submitted=True')
     else:
@@ -461,8 +457,10 @@ def search(request):
 
     if search_query == None:
         search_query = ''
-        
+
+
     return render(request, 'search_results.html', {
         'search_query': search_query,
         'search_results': search_results,
+        "search_page": "active"
     })

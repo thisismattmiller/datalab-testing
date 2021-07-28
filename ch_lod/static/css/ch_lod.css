@@ -19,3 +19,21 @@
 .prop-table{
 	margin-bottom: 2em;
 }
+
+body{
+	margin-bottom: 150px;
+}
+
+html{
+  position:relative; 
+  min-height: 100%;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height:100px;
+
+}

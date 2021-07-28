@@ -8,24 +8,40 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/datalab">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item" {{ about_page }}>
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
-                </li>
-              <li class="nav-item" {{ experiments_page }}>
+
+                {% if request.path == "/datalab/" %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/datalab">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/datalab">
+                            Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+
+                {% endif %}
+
+
+            <li class="nav-item {{ about_page }}" >
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+              <li class="nav-item {{ experiments_page }}" >
                 <a class="nav-link" href="{% url 'experiments' %}">Experiments</a>
               </li>
-              <li class="nav-item" {{ sparql_page }}>
+              <li class="nav-item {{ sparql_page }}" >
                 <a class="nav-link" href="/sparql">SPARQL</a>
               </li>
-              <li class="nav-item" {{ contact_page }}>
+              <li class="nav-item {{ contact_page }}" >
                 <a class="nav-link" href="{% url 'contact' %}">Contact</a>
               </li>
-              <li class="nav-item">
+
+
+              <li class="nav-item {{ search_page }}">
                 <a class="nav-link" href="{% url 'search-blog' %}">Search</a>
               </li>
 

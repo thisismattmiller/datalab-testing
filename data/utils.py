@@ -822,7 +822,7 @@ Returns the void
 """
 def return_serialized_void(type):
 	sparql = SPARQLWrapper(settings.SPARQL_ENDPOINT)
-	print(os.environ['SPARQL_USERNAME'], os.environ['SPARQL_PASSWORD'])
+	
 	sparql.setCredentials(os.environ['SPARQL_USERNAME'], os.environ['SPARQL_PASSWORD'])
 
 	query = """
