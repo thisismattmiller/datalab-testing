@@ -1,5 +1,7 @@
 {% extends "blog/base.html" %}
 {% load wagtailimages_tags wagtailcore_tags blogapp_tags%}
+{% block title %}{{ post.title }}{% endblock title %}
+{% block meta_description %}{{ post.search_description }}{% endblock meta_description %}
 {% block content %}
  <!-- Page Content -->
  <div class="container">
